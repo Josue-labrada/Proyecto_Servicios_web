@@ -1,137 +1,186 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>JUEGOS COOL.COM</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    .game-card {
-      border: 1px solid #ccc;
-      border-radius: 15px;
-      padding: 15px;
-      text-align: center;
-      margin: 10px;
-      height: 100%;
-    }
-    .game-card img {
-      height: 180px;
-      object-fit: cover;
-      border-radius: 10px;
-    }
-    .header {
-      background-color: #dbe9ff;
-      padding: 10px;
-    }
-    .profile-box {
-      background-color: white;
-      padding: 5px 10px;
-      border-radius: 50px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUEGOS COOL.COM</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: url(https://preview.redd.it/2d-dark-forest-parallax-background-in-pixel-art-great-for-v0-uecnp1edrekb1.png?width=1920&format=png&auto=webp&s=8d322be095d11d5aaa712b472ed60dfcf6fd5c01) no-repeat;
+            background-size: cover;
+            background-position: center;
+            overflow-x: hidden;
+        }
+        
+        .navbar {
+            background-color: #d6e6f5;
+            padding: 10px 20px;
+        }
+        
+        .navbar-brand {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #000;
+        }
+        
+        .navbar-brand img {
+            margin-right: 10px;
+        }
+        
+        .game-card {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            margin: 20px 10px;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .game-title {
+            background-color: #f8f9fa;
+            padding: 10px;
+            text-align: center;
+            font-weight: 600;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .game-content {
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .game-description {
+            margin-bottom: 10px;
+            text-align: center;
+            color: #fff;
+        }
+        
+        .carousel-control-prev,
+        .carousel-control-next {
+            background-color: rgba(0,0,0,0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .carousel-inner {
+            padding: 20px 40px;
+        }
+        
+        .search-form {
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        
+        .username-display {
+            background-color: #fff;
+            border-radius: 20px;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+        }
+        .game-card img {
+    height: 280px; /* o el alto que desees */
+    object-fit: cover;
+}
+
+    
+    </style>
 </head>
 <body>
+    <!--Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="https://www.brexa.com.ar/gaming/img/profile-control.png" alt="Gamepad Logo" width="50" height="50">
+                JUEGOS COOL.COM
+            </a>
+            <div class="d-flex align-items-center">
+                <form class="d-flex me-3">
+                    <input class="form-control search-form" type="search" placeholder="Busca tus amigos" aria-label="Search">
+                </form>
+                <div class="username-display me-3">
+                    Usuario 1<br>
+                    Score: 72940
+                </div>
 
-<!-- HEADER -->
-<div class="container-fluid header d-flex justify-content-between align-items-center">
-  <div class="d-flex align-items-center">
-    <img src="https://resource.logitechg.com/w_692,c_lpad,ar_4:3,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/gaming/en/products/f310/f310-gallery-1.png?v=1" alt="control" width="40">
-    <h2 class="ms-2 mb-0">JUEGOS COOL.COM</h2>
-  </div>
-  <div class="d-flex align-items-center">
-    <input type="text" class="form-control me-2" placeholder="Busca tus amigos">
-    <div class="profile-box">
-      <strong>Mi nombre y puntaje:</strong> 123234234234
-    </div>
-    <img src="https://cdn-icons-png.flaticon.com/512/272/272354.png" alt="icono usuario" width="40" class="ms-2">
-  </div>
-</div>
+                <a href="#" class="ms-3 text-black" title="Configuración">
+                    <i class="bi bi-gear-fill fs-4"></i>   
+                </a>
 
-<!-- CARRUSEL MULTIPLE -->
-<div id="juegosCarousel" class="carousel slide mt-4" data-bs-ride="carousel">
-  <div class="carousel-inner">
-
-    <!-- Slide 1 -->
-    <div class="carousel-item active">
-      <div class="container">
-        <div class="row justify-content-center">
-          
-          <!-- Juego 1 -->
-          <div class="col-12 col-md-4">
-            <div class="game-card">
-              <h4>ARKANOID</h4>
-              <img src="https://www3.minijuegosgratis.com/v3/games/thumbnails/1969_1.jpg" class="img-fluid" alt="Arkanoid">
-              <p class="mt-2">En este juego:<br>BLA<br>BLA<br>BLA<br>BLA<br>BLA</p>
             </div>
-          </div>
-
-          <!-- Juego 2 -->
-          <div class="col-12 col-md-4">
-            <div class="game-card">
-              <h4>SNAKE</h4>
-              <img src="https://estaticos-cdn.prensaiberica.es/clip/83be2cef-0889-41da-a659-d5ae90cd9413_alta-libre-aspect-ratio_default_0.jpg" class="img-fluid" alt="Snake">
-              <p class="mt-2">En este juego:<br>bLA<br>BLA<br>B;A</p>
-            </div>
-          </div>
-
-          <!-- Juego 3 -->
-          <div class="col-12 col-md-4">
-            <div class="game-card">
-              <h4>NUMPUZ</h4>
-              <img src="https://play-lh.googleusercontent.com/93ehNR3unnwtSGn98NdjS9IWOUT4-pA3y0McCr4w2oFEdssIZUSv24KlE6pomeCxiOw=w526-h296-rw" class="img-fluid" alt="Numpuz">
-              <p class="mt-2">En este juego:<br>bLA<br>BLA<br>B;A</p>
-            </div>
-          </div>
-
         </div>
-      </div>
-    </div>
+    </nav>
 
-    <!-- Slide 2 con "COMING SOON" -->
-    <div class="carousel-item">
-      <div class="container">
-        <div class="row justify-content-center">
-
-          <!-- COMING SOON -->
-          <div class="col-12 col-md-4">
-            <div class="game-card">
-              <h4>COMING SOON</h4>
-              <img src="https://i0.wp.com/imgs.hipertextual.com/wp-content/uploads/2016/01/Mr-INCOGNITO.jpg?fit=1350%2C937&quality=50&strip=all&ssl=1" alt="Incognito" class="img-fluid">
-              <p class="mt-2">INCOGNITO</p>
+    <!--Carousel -->
+    <div class="container mt-4">
+        <div id="gamesCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="game-card">
+                                <div class="game-title">ARKANOID</div>
+                                <img src="https://www3.minijuegosgratis.com/v3/games/thumbnails/1969_1.jpg" class="d-block w-100" alt="Arkanoid game">
+                                <div class="game-content">
+                                    <p class="game-description">
+                                        Arkanoid es un icónico juego arcade desarrollado por TAITO Corporation en 1986. Durante el ataque a la nave nodriza ARKANOID, una pequeña nave, VAUS, consigue escapar, aunque termina quedando atrapada en otra dimensión.<br>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="game-card">
+                                <div class="game-title">SNAKE</div>
+                                <img src="https://play-lh.googleusercontent.com/v8w4fmZli_DKkn9tN5P_tr0Wvky4zVjSf0pmd9VATiRJV-yfpI9cDwnpAMmpMh3tz94" class="d-block w-100" alt="Snake game">
+                                <div class="game-content">
+                                    <p class="game-description">
+                                        Este es un videojuego en el que tú como jugador controlaras una serpiente que se desplaza por una pantalla, comiendo alimentos y creciendo de tamaño. El objetivo es evitar que la serpiente choque contra las paredes o contra su propio cuerpo. <br>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="game-card">
+                                <div class="game-title">Numpuz</div>
+                                <img src="https://play-lh.googleusercontent.com/2WdPCRJ0kW43Ded_bV1M0Ac1a6xO7zFoblZT_R0KfWxSwcmmi14fLnvfKKny-kis4Do=w526-h296-rw" class="d-block w-100" alt="Numpuz game">
+                                <div class="game-content">
+                                    <p class="game-description">
+                                        Este juego es un clásico juego de puzzles matemáticos. Toca y mueve las fichas de madera con números, disfruta la magia de los dígitos, coordina tus ojos, manos y cerebro. ¡Pon a prueba tu lógica y capacidad mental, diviértete y disfrútalo!<br>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
             </div>
-          </div>
-
-          <!-- Dejando todo centrado -->
-          <div class="col-12 col-md-4 d-none d-md-block">
-            <div class="game-card">
-              <h4>COMING SOON</h4>
-              <img src="https://i0.wp.com/imgs.hipertextual.com/wp-content/uploads/2016/01/Mr-INCOGNITO.jpg?fit=1350%2C937&quality=50&strip=all&ssl=1" alt="Incognito" class="img-fluid">
-              <p class="mt-2">INCOGNITO</p>
-            </div>
-          </div>
-
-          <div class="col-12 col-md-4 d-none d-md-block">
-            <div class="game-card">
-              <h4>COMING SOON</h4>
-              <img src="https://i0.wp.com/imgs.hipertextual.com/wp-content/uploads/2016/01/Mr-INCOGNITO.jpg?fit=1350%2C937&quality=50&strip=all&ssl=1" alt="Incognito" class="img-fluid">
-              <p class="mt-2">INCOGNITO</p>
-            </div>
-          </div>
-
+            <button class="carousel-control-prev" type="button" data-bs-target="#gamesCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#gamesCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
-      </div>
     </div>
 
-  </div>
-
-  <!-- Controles del carrusel -->
-  <button class="carousel-control-prev" type="button" data-bs-target="#juegosCarousel" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon"></span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#juegosCarousel" data-bs-slide="next">
-    <span class="carousel-control-next-icon"></span>
-  </button>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!--Bootstrap JS Bundle with Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
