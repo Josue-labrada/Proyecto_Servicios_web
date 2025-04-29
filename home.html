@@ -16,10 +16,11 @@
         }
 
         body {
-            background: url(https://preview.redd.it/2d-dark-forest-parallax-background-in-pixel-art-great-for-v0-uecnp1edrekb1.png?width=1920&format=png&auto=webp&s=8d322be095d11d5aaa712b472ed60dfcf6fd5c01) no-repeat;
+            background: #000 url(https://preview.redd.it/2d-dark-forest-parallax-background-in-pixel-art-great-for-v0-uecnp1edrekb1.png?width=1920&format=png&auto=webp&s=8d322be095d11d5aaa712b472ed60dfcf6fd5c01) no-repeat top center;
             background-size: cover;
-            background-position: center;
+            background-attachment: fixed;
             overflow-x: hidden;
+            color: white;
         }
         
         .navbar {
@@ -51,6 +52,7 @@
         
         .game-title {
             background-color: #f8f9fa;
+            color: #000;
             padding: 10px;
             text-align: center;
             font-weight: 600;
@@ -98,7 +100,17 @@
     object-fit: cover;
 }
 
-    
+    @media (min-width: 768px) {
+      .carousel-inner {
+        /* removed flex styles */
+      }
+      .carousel-item {
+        /* removed flex styles */
+      }
+      .carousel-item .row {
+        /* removed flex styles */
+      }
+    }
     </style>
 </head>
 <body>
@@ -113,7 +125,7 @@
                 <form class="d-flex me-3">
                     <input class="form-control search-form" type="search" placeholder="Busca tus amigos" aria-label="Search">
                 </form>
-                <div class="username-display me-3">
+                <div class="username-display me-3" style="background-color: #111; color: white;">
                     Usuario 1<br>
                     Score: 72940
                 </div>
@@ -130,44 +142,67 @@
     <div class="container mt-4">
         <div id="gamesCarousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="game-card">
-                                <div class="game-title">ARKANOID</div>
-                                <img src="https://www3.minijuegosgratis.com/v3/games/thumbnails/1969_1.jpg" class="d-block w-100" alt="Arkanoid game">
-                                <div class="game-content">
-                                    <p class="game-description">
-                                        Arkanoid es un icónico juego arcade desarrollado por TAITO Corporation en 1986. Durante el ataque a la nave nodriza ARKANOID, una pequeña nave, VAUS, consigue escapar, aunque termina quedando atrapada en otra dimensión.<br>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="game-card">
-                                <div class="game-title">SNAKE</div>
-                                <img src="https://play-lh.googleusercontent.com/v8w4fmZli_DKkn9tN5P_tr0Wvky4zVjSf0pmd9VATiRJV-yfpI9cDwnpAMmpMh3tz94" class="d-block w-100" alt="Snake game">
-                                <div class="game-content">
-                                    <p class="game-description">
-                                        Este es un videojuego en el que tú como jugador controlaras una serpiente que se desplaza por una pantalla, comiendo alimentos y creciendo de tamaño. El objetivo es evitar que la serpiente choque contra las paredes o contra su propio cuerpo. <br>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="game-card">
-                                <div class="game-title">Numpuz</div>
-                                <img src="https://play-lh.googleusercontent.com/2WdPCRJ0kW43Ded_bV1M0Ac1a6xO7zFoblZT_R0KfWxSwcmmi14fLnvfKKny-kis4Do=w526-h296-rw" class="d-block w-100" alt="Numpuz game">
-                                <div class="game-content">
-                                    <p class="game-description">
-                                        Este juego es un clásico juego de puzzles matemáticos. Toca y mueve las fichas de madera con números, disfruta la magia de los dígitos, coordina tus ojos, manos y cerebro. ¡Pon a prueba tu lógica y capacidad mental, diviértete y disfrútalo!<br>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        
+              <div class="carousel-item active">
+                <div class="row">
+                  <!-- Tarjeta 1 -->
+                  <div class="col-md-4">
+                    <div class="game-card">
+                      <div class="game-title">ARKANOID</div>
+                      <img src="https://www3.minijuegosgratis.com/v3/games/thumbnails/1969_1.jpg" class="d-block w-100" alt="Arkanoid game">
+                      <div class="game-content">
+                        <p class="game-description">Destruye bloques con tu nave espacial en este clásico arcade. ¡Reflejos rápidos, poderosas mejoras y mucha acción te esperan!</p>
+                      </div>
                     </div>
+                  </div>
+                  <!-- Tarjeta 2 -->
+                  <div class="col-md-4">
+                    <div class="game-card">
+                      <div class="game-title">SNAKE</div>
+                      <img src="https://play-lh.googleusercontent.com/v8w4fmZli_DKkn9tN5P_tr0Wvky4zVjSf0pmd9VATiRJV-yfpI9cDwnpAMmpMh3tz94" class="d-block w-100" alt="Snake game">
+                      <div class="game-content">
+                        <p class="game-description">Controla una serpiente hambrienta que crece más y más. ¡Evita chocar contigo mismo y alcanza récords imposibles!</p>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Tarjeta 3 -->
+                  <div class="col-md-4">
+                    <div class="game-card">
+                      <div class="game-title">NUMPUZ</div>
+                      <img src="https://play-lh.googleusercontent.com/2WdPCRJ0kW43Ded_bV1M0Ac1a6xO7zFoblZT_R0KfWxSwcmmi14fLnvfKKny-kis4Do=w526-h296-rw" class="d-block w-100" alt="Numpuz game">
+                      <div class="game-content">
+                        <p class="game-description">Pon a prueba tu mente con este rompecabezas numérico. ¡Mueve las piezas, organiza los números y reta tu lógica al máximo!</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+              </div>
+              <div class="carousel-item">
+                <div class="row">
+                  <!-- Tarjeta 4 COMING SOON -->
+                  <div class="col-md-4">
+                    <div class="game-card">
+                      <div class="game-title">COMING SOON</div>
+                      <img src="https://i0.wp.com/imgs.hipertextual.com/wp-content/uploads/2016/01/Mr-INCOGNITO.jpg?fit=1350%2C937&quality=50&strip=all&ssl=1" class="d-block w-100" alt="Coming Soon">
+                      <div class="game-content">
+                        <p class="game-description">¡Un nuevo desafío está en camino! Prepárate para vivir nuevas aventuras que pondrán a prueba tus habilidades.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Tarjeta 5 COMING SOON EXTRA -->
+                  <div class="col-md-4">
+                    <div class="game-card">
+                      <div class="game-title">COMING SOON</div>
+                      <img src="https://i0.wp.com/imgs.hipertextual.com/wp-content/uploads/2016/01/Mr-INCOGNITO.jpg?fit=1350%2C937&quality=50&strip=all&ssl=1" class="d-block w-100" alt="Coming Soon 2">
+                      <div class="game-content">
+                        <p class="game-description">¡Un nuevo desafío está en camino! Prepárate para vivir nuevas aventuras que pondrán a prueba tus habilidades.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <!-- Empty column for spacing -->
+                  </div>
+                </div>
+              </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#gamesCarousel" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
