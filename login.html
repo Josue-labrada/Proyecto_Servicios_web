@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: url(https://wallpapercave.com/wp/wp4038047.jpg) no-repeat;
+            background-size: cover;
+            background-position: center;
+            overflow-x: hidden;
+        }
+
+        .wrapper {
+            width: 420px;
+            background: transparent;
+            color: #fff;
+            border-radius: 10px;
+            padding: 30px 40px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .wrapper h1 {
+            font-size: 36px;
+            text-align: center;
+        }
+
+        .wrapper .input-box {
+            position: relative;
+            width: 100%;
+            height: 50px;
+            margin: 30px 0;
+        }
+
+        .input-box input {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+            border: 2px solid rgba(255, 255, 255, .2);
+            border-radius: 40px;
+            font-size: 16px;
+            color: #fff;
+            padding: 20px 55px 20px 20px;
+        }
+
+        .input-box input::placeholder {
+            color: #fff;
+        }
+
+        .input-box i {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+        }
+
+        .wrapper .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14.5px;
+            margin: -15px 0 15px;
+        }
+
+        .remember-forgot label input {
+            accent-color: #fff;
+            margin-right: 3px;
+        }
+
+        .wrapper .btn, .modal-content .btn {
+            width: 100%;
+            height: 45px;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            border: none;
+            outline: none;
+            border-radius: 40px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            font-size: 16px;
+            color: #fff;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .wrapper .btn:hover, .modal-content .btn:hover {
+            background: linear-gradient(135deg, #5b73e8, #9a5de2);
+            transform: scale(1.05);
+        }
+
+        .wrapper .register-link {
+            font-size: 14.5px;
+            text-align: center;
+            margin: 20px 0 15px;
+        }
+
+        .register-link p a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .register-link p a:hover {
+            text-decoration: underline;
+        }
+
+        /* modal de registro */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-content {
+            width: 450px;
+            background: transparent;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 30px 40px;
+            color: #fff;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+            animation: slideIn 0.4s ease-in-out;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.8);
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: #fff;
+        }
+
+        .modal-content h2 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .modal-content .input-box {
+            position: relative;
+            width: 100%;
+            height: 50px;
+            margin: 20px 0;
+        }
+
+        .modal-content .input-box input {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+            border: 2px solid rgba(255, 255, 255, .2);
+            border-radius: 40px;
+            font-size: 16px;
+            color: #fff;
+            padding: 20px 55px 20px 20px;
+        }
+
+        .modal-content .input-box i {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+        }
+
+        /* estilos para la validacion de la pass */
+        .password-strength {
+            font-size: 12px;
+            margin: -20px 0 20px 10px;
+            color: #ddd;
+        }
+
+        .terms {
+            display: flex;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+
+        .terms input {
+            margin-right: 8px;
+        }
+
+        /* transicion del modal */
+        .toggle-btn {
+            margin-top: 10px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .toggle-btn a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .toggle-btn a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Formulario de Login -->
+    <div class="wrapper">
+        <form action="">
+            <h1>Login</h1>
+            <div class="input-box">
+                <input type="text" placeholder="Username" required>
+                <i class='bx bxs-user'></i>
+            </div>
+            <div class="input-box">
+                <input type="password" placeholder="Password" required>
+                <i class='bx bxs-lock-alt'></i>
+            </div>
+            <div class="remember-forgot">
+                <label><input type="checkbox"> Remember Me</label>
+            </div>
+            <button type="submit" class="btn">Login</button>
+            <div class="register-link">
+                <p>¿No tienes cuenta? <a href="#" id="open-register">Register</a></p>
+            </div>
+        </form>
+    </div>
+
+    <!-- Modal de Registro -->
+    <div id="register-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Crear Cuenta</h2>
+            <form action="">
+                <div class="input-box">
+                    <input type="text" placeholder="Nombre completo" required>
+                    <i class='bx bxs-user'></i>
+                </div>
+                <div class="input-box">
+                    <input type="email" placeholder="Email" required>
+                    <i class='bx bxs-envelope'></i>
+                </div>
+                <div class="input-box">
+                    <input type="text" placeholder="Username" required>
+                    <i class='bx bxs-user-circle'></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" id="password" placeholder="Password" required>
+                    <i class='bx bxs-lock-alt'></i>
+                </div>
+                <div class="password-strength">La contraseña debe tener al menos 8 caracteres, incluyendo números y símbolos (!@#$%^&?*).</div>
+                <div class="input-box">
+                    <input type="password" placeholder="Confirmar Password" required>
+                    <i class='bx bxs-lock-alt'></i>
+                </div>
+                <div class="terms">
+                    <input type="checkbox" id="accept-terms" required>
+                    <label for="accept-terms">Acepto los términos y condiciones</label>
+                </div>
+                <button type="submit" class="btn">Registrarse</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById('register-modal');
+        
+        const btn = document.getElementById('open-register');
+        
+        const closeBtn = document.querySelector('.close-modal');
+        
+        //funcion para abrir el modal
+        btn.onclick = function() {
+            modal.style.display = 'flex';
+        }
+        
+        //funcion cerrar modal
+        closeBtn.onclick = function() {
+            modal.style.display = 'none';
+        }
+        
+        //cerrar modal si se hace click fuera de la ventana del modal
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+        
+        //validacion contraseña
+        document.getElementById('password').addEventListener('input', function() {
+            const passwordStrength = document.querySelector('.password-strength');
+            const password = this.value;
+            
+            if (password.length >= 8 && /[0-9]/.test(password) && /[!@#$%^&?*]/.test(password)) {
+                passwordStrength.style.color = '#4CAF50';
+                passwordStrength.textContent = 'Contraseña fuerte';
+            } else if (password.length >= 6) {
+                passwordStrength.style.color = '#FFC107';
+                passwordStrength.textContent = 'Contraseña media';
+            } else {
+                passwordStrength.style.color = '#ddd';
+                passwordStrength.textContent = 'La contraseña debe tener al menos 8 caracteres, incluyendo números y símbolos (!@#$%^&?*).';
+            }
+        });
+    </script>
+</body>
+
+</html>
