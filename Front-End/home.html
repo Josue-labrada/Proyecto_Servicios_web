@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUEGOS COOL.COM</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: #000 url(https://preview.redd.it/2d-dark-forest-parallax-background-in-pixel-art-great-for-v0-uecnp1edrekb1.png?width=1920&format=png&auto=webp&s=8d322be095d11d5aaa712b472ed60dfcf6fd5c01) no-repeat top center;
+            background-size: cover;
+            background-attachment: fixed;
+            overflow-x: hidden;
+            color: white;
+        }
+        
+        .navbar {
+            background-color: #d6e6f5;
+            padding: 10px 20px;
+        }
+        
+        .navbar-brand {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #000;
+        }
+        
+        .navbar-brand img {
+            margin-right: 10px;
+        }
+        
+        .game-card {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            margin: 20px 10px;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .game-title {
+            background-color: #f8f9fa;
+            color: #000;
+            padding: 10px;
+            text-align: center;
+            font-weight: 600;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .game-content {
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .game-description {
+            margin-bottom: 10px;
+            text-align: center;
+            color: #fff;
+        }
+        
+        .carousel-control-prev,
+        .carousel-control-next {
+            background-color: rgba(0,0,0,0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .carousel-inner {
+            padding: 20px 40px;
+        }
+        
+        .search-form {
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        
+        .username-display {
+            background-color: #fff;
+            border-radius: 20px;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+        }
+        .game-card img {
+    height: 280px; /* o el alto que desees */
+    object-fit: cover;
+}
+
+    @media (min-width: 768px) {
+      .carousel-inner {
+        /* removed flex styles */
+      }
+      .carousel-item {
+        /* removed flex styles */
+      }
+      .carousel-item .row {
+        /* removed flex styles */
+      }
+    }
+    </style>
+</head>
+<body>
+    <!--Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="./login.html">
+                <img src="https://www.brexa.com.ar/gaming/img/profile-control.png" alt="Gamepad Logo" width="50" height="50">
+                JUEGOS COOL.COM
+            </a>
+            <div class="d-flex align-items-center">
+                <form class="d-flex me-3" action="./ranked.html" method="GET">
+                    <input class="form-control search-form" type="search" name="amigo" placeholder="Busca tus amigos" aria-label="Search">
+                </form>
+                <div class="username-display me-3" style="background-color: #111; color: white;">
+                    Usuario 1<br>
+                    Score: 72940
+                </div>
+
+                <a href="#" class="ms-3 text-black" title="Configuración" data-bs-toggle="modal" data-bs-target="#settingsModal">
+                    <i class="bi bi-gear-fill fs-4"></i>
+                </a>
+
+            </div>
+        </div>
+    </nav>
+
+    <!--Carousel -->
+    <div class="container mt-4">
+        <div id="gamesCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="row">
+                  <!-- Tarjeta 1 -->
+                  <div class="col-md-4">
+                    <div class="game-card">
+                      <div class="game-title">ARKANOID</div>
+                      <img src="https://www3.minijuegosgratis.com/v3/games/thumbnails/1969_1.jpg" class="d-block w-100" alt="Arkanoid game">
+                      <div class="game-content">
+                        <p class="game-description">Destruye bloques con tu nave espacial en este clásico arcade. ¡Reflejos rápidos, poderosas mejoras y mucha acción te esperan!</p>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Tarjeta 2 -->
+                  <div class="col-md-4">
+                    <div class="game-card">
+                      <div class="game-title">SNAKE</div>
+                      <img src="https://play-lh.googleusercontent.com/v8w4fmZli_DKkn9tN5P_tr0Wvky4zVjSf0pmd9VATiRJV-yfpI9cDwnpAMmpMh3tz94" class="d-block w-100" alt="Snake game">
+                      <div class="game-content">
+                        <p class="game-description">Controla una serpiente hambrienta que crece más y más. ¡Evita chocar contigo mismo y alcanza récords imposibles!</p>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Tarjeta 3 -->
+                  <div class="col-md-4">
+                    <div class="game-card">
+                      <div class="game-title">NUMPUZ</div>
+                      <img src="https://play-lh.googleusercontent.com/2WdPCRJ0kW43Ded_bV1M0Ac1a6xO7zFoblZT_R0KfWxSwcmmi14fLnvfKKny-kis4Do=w526-h296-rw" class="d-block w-100" alt="Numpuz game">
+                      <div class="game-content">
+                        <p class="game-description">Pon a prueba tu mente con este rompecabezas numérico. ¡Mueve las piezas, organiza los números y reta tu lógica al máximo!</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="row">
+                  <!-- Tarjeta 4 COMING SOON -->
+                  <div class="col-md-4">
+                    <div class="game-card">
+                      <div class="game-title">COMING SOON</div>
+                      <img src="https://i0.wp.com/imgs.hipertextual.com/wp-content/uploads/2016/01/Mr-INCOGNITO.jpg?fit=1350%2C937&quality=50&strip=all&ssl=1" class="d-block w-100" alt="Coming Soon">
+                      <div class="game-content">
+                        <p class="game-description">¡Un nuevo desafío está en camino! Prepárate para vivir nuevas aventuras que pondrán a prueba tus habilidades.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Tarjeta 5 COMING SOON EXTRA -->
+                  
+                    <!-- Empty column for spacing -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#gamesCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#gamesCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+
+    <!--Modal de Configuración -->
+    <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content bg-dark text-white">
+          <div class="modal-header">
+            <h5 class="modal-title" id="settingsModalLabel">Configuración de cuenta</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <form id="settingsForm">
+              <div class="mb-3">
+                <label for="emailInput" class="form-label">Correo electrónico</label>
+                <input type="email" class="form-control" id="emailInput" placeholder="usuario@example.com">
+              </div>
+              <div class="mb-3">
+                <label for="passwordInput" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="passwordInput" placeholder="Nueva contraseña">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">Eliminar cuenta</button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmSaveModal">Guardar cambios</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de Confirmación para Guardar Cambios -->
+    <div class="modal fade" id="confirmSaveModal" tabindex="-1" aria-labelledby="confirmSaveModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content bg-dark text-white">
+          <div class="modal-header">
+            <h5 class="modal-title" id="confirmSaveModalLabel">¿Guardar cambios?</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            ¿Estás seguro de que deseas guardar los cambios en tu cuenta?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-success" onclick="confirmarGuardado()">Sí, guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de Confirmación para Eliminar Cuenta -->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content bg-dark text-white">
+          <div class="modal-header">
+            <h5 class="modal-title" id="confirmDeleteModalLabel">¿Eliminar cuenta?</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            ¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-danger" onclick="confirmarEliminacion()">Sí, eliminar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Bootstrap JS Bundle with Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+      function confirmarEliminacion() {
+        alert("Cuenta eliminada.");
+        const deleteModal = bootstrap.Modal.getInstance(document.getElementById('confirmDeleteModal'));
+        deleteModal.hide();
+        const configModal = bootstrap.Modal.getInstance(document.getElementById('settingsModal'));
+        configModal.hide();
+      }
+      function confirmarGuardado() {
+        alert("Cambios guardados exitosamente.");
+        const modal = bootstrap.Modal.getInstance(document.getElementById('confirmSaveModal'));
+        modal.hide();
+        const configModal = bootstrap.Modal.getInstance(document.getElementById('settingsModal'));
+        configModal.hide();
+      }
+    </script>
+</body>
+</html>
