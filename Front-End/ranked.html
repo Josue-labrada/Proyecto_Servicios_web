@@ -1,161 +1,134 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
   <title>Ranking - Juegos Cool</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
   <style>
     body {
-      background-color: #f8f9fa;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: "Poppins", sans-serif;
+      background-color: #eef4ff;
       margin: 0;
       padding: 0;
     }
-    .navbar {
-      background-color: #0d6efd;
+
+    header {
+      background-color: #cfe2ff;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
-    .navbar-brand, .nav-link, .navbar-toggler-icon {
-      color: white !important;
+
+    header img {
+      height: 40px;
+      margin-right: 10px;
     }
-    .navbar-brand:hover, .nav-link:hover {
-      color: #dbe9ff !important;
+
+    header h1 {
+      font-size: 28px;
+      margin: 0;
+      display: flex;
+      align-items: center;
     }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+    }
+
+    .search-bar input {
+      padding: 6px 10px;
+      font-size: 16px;
+      margin-right: 10px;
+    }
+
     .ranking-table {
-      margin-top: 2rem;
+      width: 80%;
+      margin: 30px auto;
+      border-collapse: collapse;
+      border-radius: 10px;
+      overflow: hidden;
       background-color: white;
-      border-radius: 0.375rem;
-      box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 0.075);
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
+
+    .ranking-table th, .ranking-table td {
+      padding: 15px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
     .ranking-table th {
-      background-color: #e7f1ff;
-      color: #0d6efd;
+      background-color: #d0e1ff;
     }
+
     .donate-btn {
-      background-color: #0d6efd;
+      padding: 6px 12px;
+      background-color: #5e8edc;
       color: white;
       border: none;
-      border-radius: 0.375rem;
-      padding: 0.375rem 0.75rem;
+      border-radius: 5px;
       cursor: pointer;
-      transition: background-color 0.2s ease-in-out;
     }
+
     .donate-btn:hover {
-      background-color: #084298;
+      background-color: #466eb8;
+    }
+
+    .pagination {
+      text-align: center;
+      margin: 20px;
+    }
+
+    .pagination button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #ccc;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .pagination button:hover {
+      background-color: #bbb;
     }
   </style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg">
-  <div class="container">
-    <a class="navbar-brand d-flex align-items-center" href="./home.html">
-      <img src="https://cdn-icons-png.flaticon.com/512/69/69524.png" alt="logo" width="32" height="32" class="me-2" />
-      JUEGOS COOL.COM
-    </a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNav"
-      aria-controls="navbarNav"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-      <form class="d-flex me-3" role="search" action="./ranked.html" method="GET">
-        <input class="form-control me-2" type="search" placeholder="Buscador de amigos" aria-label="Buscar" />
-        <button class="btn btn-outline-light" type="submit"><i class="bi bi-search"></i></button>
-      </form>
-      <a href="#" class="btn btn-outline-light" title="Configuración" data-bs-toggle="modal" data-bs-target="#settingsModal">
-        <i class="bi bi-gear-fill fs-5"></i>
-      </a>
-    </div>
+<header>
+  <h1><img src="https://cdn-icons-png.flaticon.com/512/69/69524.png" alt="logo"> JUEGOS COOL.COM</h1>
+  <div class="search-bar">
+    <input type="text" placeholder="Buscador de amigos">
+    <img src="https://cdn-icons-png.flaticon.com/512/126/126472.png" alt="icon" width="32">
   </div>
-</nav>
+</header>
 
-<div class="container">
-  <table class="table ranking-table table-hover text-center">
-    <thead>
-      <tr>
-        <th scope="col">Usuario</th>
-        <th scope="col">Experiencia</th>
-        <th scope="col">Donación</th>
-      </tr>
-    </thead>
-    <tbody id="rankingBody">
-      <!-- Jugadores dinámicos -->
-    </tbody>
-  </table>
+<!-- Botón de regreso -->
+<div class="text-center my-4">
+  <a href="home.html" class="btn btn-outline-primary btn-lg">
+    <i class="bi bi-arrow-left-circle"></i> Volver al Home
+  </a>
 </div>
 
-<!-- Modal de Configuración -->
-<div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="settingsModalLabel">Configuración de cuenta</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-      </div>
-      <div class="modal-body">
-        <form id="settingsForm">
-          <div class="mb-3">
-            <label for="emailInput" class="form-label">Correo electrónico</label>
-            <input type="email" class="form-control" id="emailInput" placeholder="usuario@example.com" />
-          </div>
-          <div class="mb-3">
-            <label for="passwordInput" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" id="passwordInput" placeholder="Nueva contraseña" />
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-bs-dismiss="modal">Eliminar cuenta</button>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmSaveModal" data-bs-dismiss="modal">Guardar cambios</button>
-      </div>
-    </div>
-  </div>
-</div>
+<!-- Tabla de ranking -->
+<table class="ranking-table">
+  <thead>
+    <tr>
+      <th>Usuario</th>
+      <th>Experiencia</th>
+      <th>Donación</th>
+    </tr>
+  </thead>
+  <tbody id="rankingBody">
+    <!-- Jugadores dinámicos -->
+  </tbody>
+</table>
 
-<!-- Modal Confirmar Guardado -->
-<div class="modal fade" id="confirmSaveModal" tabindex="-1" aria-labelledby="confirmSaveModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="confirmSaveModalLabel">¿Guardar cambios?</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-      </div>
-      <div class="modal-body">
-        ¿Estás seguro de que deseas guardar los cambios en tu cuenta?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-success" onclick="confirmarGuardado()">Sí, guardar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal Confirmar Eliminación -->
-<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="confirmDeleteModalLabel">¿Eliminar cuenta?</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-      </div>
-      <div class="modal-body">
-        ¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-danger" onclick="confirmarEliminacion()">Sí, eliminar</button>
-      </div>
-    </div>
-  </div>
+<div class="pagination">
+  <button disabled>Paginado</button>
 </div>
 
 <script>
@@ -179,76 +152,15 @@
       const row = document.createElement("tr");
       row.innerHTML = `
         <td>${jugador.nombre}</td>
-        <td>${jugador.puntos.toLocaleString()} pts</td>
-        <td><button class="donate-btn" onclick="abrirDonacion('${jugador.nombre}')">Regalar puntos</button></td>
+        <td>Puntaje: ${jugador.puntos}</td>
+        <td><button class="donate-btn">Regalar puntos</button></td>
       `;
       rankingBody.appendChild(row);
     });
   }
 
   renderRanking();
-
-  function confirmarEliminacion() {
-    alert("Cuenta eliminada.");
-    const deleteModal = bootstrap.Modal.getInstance(document.getElementById('confirmDeleteModal'));
-    deleteModal.hide();
-    const configModal = bootstrap.Modal.getInstance(document.getElementById('settingsModal'));
-    configModal.hide();
-  }
-
-  function confirmarGuardado() {
-    alert("Cambios guardados exitosamente.");
-    const saveModal = bootstrap.Modal.getInstance(document.getElementById('confirmSaveModal'));
-    saveModal.hide();
-    const configModal = bootstrap.Modal.getInstance(document.getElementById('settingsModal'));
-    configModal.hide();
-  }
-
-  // Modal de donación de puntos
-  let jugadorSeleccionado = null;
-
-  function abrirDonacion(nombre) {
-    jugadorSeleccionado = nombre;
-    document.getElementById("donateToUser").textContent = `Regalando puntos a: ${nombre}`;
-    document.getElementById("pointsInput").value = '';
-    const modal = new bootstrap.Modal(document.getElementById('donatePointsModal'));
-    modal.show();
-  }
-
-  function confirmarDonacion() {
-    const puntos = document.getElementById("pointsInput").value;
-    if (!puntos || puntos <= 0) {
-      alert("Ingresa una cantidad válida de puntos.");
-      return;
-    }
-    alert(`Has regalado ${puntos} puntos a ${jugadorSeleccionado}.`);
-    const modal = bootstrap.Modal.getInstance(document.getElementById('donatePointsModal'));
-    modal.hide();
-  }
 </script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- Modal para regalar puntos -->
-<div class="modal fade" id="donatePointsModal" tabindex="-1" aria-labelledby="donatePointsModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content bg-dark text-white">
-      <div class="modal-header">
-        <h5 class="modal-title" id="donatePointsModalLabel">Regalar puntos</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-      </div>
-      <div class="modal-body">
-        <p id="donateToUser" class="fw-bold mb-3"></p>
-        <label for="pointsInput" class="form-label">¿Cuántos puntos deseas regalar?</label>
-        <input type="number" class="form-control" id="pointsInput" placeholder="Ej. 100" />
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" onclick="confirmarDonacion()">Enviar</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 </body>
 </html>
