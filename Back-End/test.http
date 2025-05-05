@@ -1,0 +1,48 @@
+// Post Users
+###
+POST http://localhost:3000/api/users HTTP/1.1
+content-type: application/json
+
+{
+    "nombre": "rara",
+    "correo": "rubennn@gmail.com",
+    "pass": "pass123",
+    "score": 0,
+    "edad": 20
+}
+
+// Get de usuarios
+###
+GET http://localhost:3000/api/users?nombre=rara
+
+// Put Users-----Editar usuarios
+###
+PUT http://localhost:3000/api/users HTTP/1.1
+content-type: application/json
+
+{
+    "id": "6819132a4c18273204ec65ad",
+    "nombre": "Ruben UPDATED"
+}
+
+//Modificar el score de un usuario
+###
+PUT http://localhost:3000/api/users HTTP/1.1
+content-type: application/json
+
+{
+  "id": "6819132a4c18273204ec65ad",
+  "score": 500
+}
+
+
+// Delete de Users
+###
+// Cambia el ID por uno existente
+DELETE http://localhost:3000/api/users HTTP/1.1
+content-type: application/json
+
+{
+    "id": "68191ba73e5fd7d703374308"
+}
+
