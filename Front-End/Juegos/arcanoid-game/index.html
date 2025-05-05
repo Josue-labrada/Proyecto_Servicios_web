@@ -67,6 +67,41 @@
     .modal-content button:hover {
         background-color: #0056b3;
     }
+
+    .navbar {
+        background-color: #f8f9fa;
+        padding: 10px 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        position: fixed;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .navbar-brand {
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+        font-size: 1.5rem;
+        color: #000;
+        text-decoration: none;
+    }
+
+    .navbar-brand img {
+        margin-right: 10px;
+    }
+
+    .search-form {
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        padding: 5px 10px;
+    }
+
+    .search-form:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
 </style>
 
     <img hidden id="bricks" src="./bricks.png" alt = "bricks"/>
@@ -301,6 +336,19 @@
 
 </canvas>
 <body>
+
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../../home.html">
+                <img src="https://www.brexa.com.ar/gaming/img/profile-control.png" alt="Gamepad Logo" width="50" height="50">
+                JUEGOS COOL.COM
+            </a>
+            <div class="d-flex align-items-center">
+                <form class="d-flex me-3" action="./ranked.html" method="GET">
+                </form>
+            </div>
+        </div>
+    </nav>
 
     <!-- Modal de Game Over -->
     <div id="gameOverModal" class="modal">
