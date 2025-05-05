@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arkanoid</title>
+</head>
+<style>
+    body {
+        background-color: #000;
+        color: #fff;
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+    canvas {
+        border: 4px solid #fff;
+        border-bottom: #000;
+        margin: 0 auto;
+        display: block;
+        background-color: #000;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+</style>
+<canvas>
+    <script>
+        const canvas = document.querySelector('canvas');
+        const ctx = canvas.getContext('2d'); //en el contexto 2d se dibuja en 2d
+        canvas.width = 680; //ancho del canvas
+        canvas.height = 480; //alto del canvas
+
+        //funciones
+        function drawball() {}
+        function drawpaddle() {}
+        function drawbricks() {}
+        function drawscore() {}
+
+        function collisionDetection() {}
+        function moveBall() {}
+        function movePaddle() {}
+
+        
+        function drawRect() {
+            //aqui se refresca el canvas
+
+            //dibujar todo el canvas
+            drawball();
+            drawpaddle();
+            drawbricks();
+            drawscore();
+
+            //moviemientos y choques
+            collisionDetection();
+            moveBall();
+            movePaddle();
+
+            window.requestAnimationFrame(drawRect); //llama a la funcion para dibujar el rectangulo
+        }
+
+
+        drawRect(); //llama a la funcion para dibujar el rectangulo
+    </script>
+
+</canvas>
+<body>
+
+    
+</body>
+</html>
