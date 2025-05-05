@@ -4,65 +4,312 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arkanoid</title>
+    <link rel="icon" href="https://www3.minijuegosgratis.com/v3/games/thumbnails/1969_1.jpg" type="image/jpeg">
 </head>
 <style>
     body {
-        background-color: #000;
-        color: #fff;
-        font-family: Arial, sans-serif;
-        text-align: center;
+        background-color: #222;
+        display: flex; /* Usamos flexbox para centrar */
+        justify-content: center; /* Centra horizontalmente */
+        align-items: center; /* Centra verticalmente */
+        height: 100vh; /* Ocupa toda la altura de la ventana */
+        margin: 0; /* Elimina márgenes */
     }
     canvas {
         border: 4px solid #fff;
-        border-bottom: #000;
-        margin: 0 auto;
-        display: block;
-        background-color: #000;
+        background: url('./fondo\ arcanoid.jpg') repeat;
         box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
     }
+
+    /* Estilos para el modal */
+    .modal {
+        display: none; /* Oculto por defecto */
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.8); /* Fondo semitransparente */
+    }
+
+    .modal-content {
+        background-color: #fff;
+        margin: 15% auto;
+        padding: 20px;
+        border-radius: 10px;
+        width: 300px;
+        text-align: center;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content h2 {
+        margin: 0 0 10px;
+        color: #222;
+    }
+
+    .modal-content p {
+        margin: 10px 0;
+        color: #555;
+    }
+
+    .modal-content button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .modal-content button:hover {
+        background-color: #0056b3;
+    }
 </style>
+
+    <img hidden id="bricks" src="./bricks.png" alt = "bricks"/>
+    <img hidden id="sprite" src="./SNES - Arkanoid Doh It Again - General Sprites.png" alt = "sprite"/>
+
 <canvas>
     <script>
         const canvas = document.querySelector('canvas');
         const ctx = canvas.getContext('2d'); //en el contexto 2d se dibuja en 2d
         canvas.width = 680; //ancho del canvas
         canvas.height = 480; //alto del canvas
+        const $bricks = document.querySelector('#bricks'); //selecciona la imagen de los bricks
+        const $sprite = document.querySelector('#sprite'); //selecciona la imagen del sprite
+        //variables de la bola
+        const ballRadius = 5; //radio de la bola
+        let x = canvas.width / 2; //posicion x de la bola
+        let y = canvas.height - 29; //posicion y de la bola
+        let dx = 2; //velocidad de la bola en x
+        let dy = -2; //velocidad de la bola en y
+
+
+        //variables del paddle
+        const paddleHeight = 12; //alto del paddle
+        const paddleWidth = 56; //ancho del paddle
+        let rightPressed = false; //si se presiona la tecla derecha
+        let leftPressed = false; //si se presiona la tecla izquierda
+        let paddleX = (canvas.width - paddleWidth) / 2; //posicion x del paddle
+        let paddleY = canvas.height - paddleHeight - 15; //posicion y del paddle
+
+        //variables de los bricks
+        const brickRowCount = 6; //cantidad de filas de bricks
+        const brickColumnCount = 12; //cantidad de columnas de bricks
+        const brickWidth = 52; //ancho de los bricks
+        const brickHeight = 20; //alto de los bricks
+        const brickPadding = 2; //espacio entre los bricks
+        const brickOffsetTop = 80; //espacio entre el borde superior y los bricks
+        const brickOffsetLeft = 20; //espacio entre el borde izquierdo y los bricks
+        const bricks = []; //array de los bricks
+        const BRICK_STATUS = {
+            ACTIVE: 1,
+            DESTROYED: 0
+        }
+        
+        for (let c = 0; c < brickColumnCount; c++) { //recorre las columnas
+            bricks[c] = []; //inicializa el array de los bricks
+            for (let r = 0; r < brickRowCount; r++) { //recorre las filas
+                //calcular posiciones de los bricks
+                const brickX = c * (brickWidth + brickPadding) + brickOffsetLeft; //posicion x de los bricks
+                const brickY = r * (brickHeight + brickPadding) + brickOffsetTop; //posicion y de los bricks
+                //colores de los bricks
+                const random = Math.floor(Math.random() * 8); //numero aleatorio entre 0 y 7
+                bricks[c][r] = { //inicializa el array de los bricks
+                    x: brickX, //posicion x de los bricks
+                    y: brickY, //posicion y de los bricks
+                    status: BRICK_STATUS.ACTIVE, //estado de los bricks
+                    color: random //color de los bricks
+                };
+            }
+        }
 
         //funciones
-        function drawball() {}
-        function drawpaddle() {}
-        function drawbricks() {}
-        function drawscore() {}
+        function drawball() {
+            cleanCanvas(); //limpia el canvas
+            ctx.beginPath(); //inicia el camino
+            ctx.arc(x, y, ballRadius, 0, Math.PI * 2); //dibuja la bola
+            ctx.fillStyle = "#aaffff"; //color de la bola
+            ctx.fill(); //rellena la bola
+            ctx.closePath(); //cierra el camino
+        }
 
-        function collisionDetection() {}
-        function moveBall() {}
-        function movePaddle() {}
+        function drawpaddle() {
+            //ctx.fillStyle = "#ffffff"; //color del paddle
+            //ctx.fillRect(paddleX, paddleY, paddleWidth, paddleHeight); //dibuja el paddle
 
+            ctx.drawImage($sprite, 30, 174, paddleWidth, paddleHeight, paddleX, paddleY, paddleWidth, paddleHeight); //dibuja la imagen del paddle
+        }
+
+        function initEvents() {
+            document.addEventListener("keydown", keyDownHandler); //escucha el evento de teclado
+            document.addEventListener("keyup", keyUpHandler); //escucha el evento de teclado
+
+            function keyDownHandler(event) {
+                const {key} = event; //obtiene la tecla presionada
+                if (key === "Right" || key === "ArrowRight") {
+                    rightPressed = true; //si se presiona la tecla derecha
+                } else if (key === "Left" || key === "ArrowLeft") {
+                    leftPressed = true; //si se presiona la tecla izquierda
+                }
+            }
+
+            function keyUpHandler(event) {
+                const {key} = event; //obtiene la tecla presionada
+                if (key === "Right" || key === "ArrowRight") {
+                    rightPressed = false; //si se suelta la tecla derecha
+                } else if (key === "Left" || key === "ArrowLeft") {
+                    leftPressed = false; //si se suelta la tecla izquierda
+                }
+            }
+        }
+        
+        function drawbricks() {
+            for (let c = 0; c < brickColumnCount; c++) { // recorre las columnas
+                for (let r = 0; r < brickRowCount; r++) { // recorre las filas
+                    const currentBrick = bricks[c][r]; // obtiene el ladrillo actual
+                    if (currentBrick.status === BRICK_STATUS.ACTIVE) { // si el ladrillo está activo
+                        
+                        const clipx = currentBrick.color * 32; // obtiene el color del ladrillo
+
+
+
+                        ctx.drawImage( $bricks, clipx, 0 , 31 , 14 ,currentBrick.x, currentBrick.y, brickWidth, brickHeight); // dibuja el ladrillo
+                    
+                    }
+                }
+            }
+        }
+
+        let score = 0; // Variable para la puntuación
+
+        function drawscore() {
+            ctx.font = "16px Arial"; // Estilo de la fuente
+            ctx.fillStyle = "#fff"; // Color del texto
+            ctx.fillText("Score: " + score, 8, 20); // Dibuja la puntuación en la esquina superior izquierda
+        }
+
+        function collisionDetection() {
+            let bricksRemaining = 0; // Contador de ladrillos restantes
+
+            for (let c = 0; c < brickColumnCount; c++) { // Recorre las columnas
+                for (let r = 0; r < brickRowCount; r++) { // Recorre las filas
+                    const currentBrick = bricks[c][r]; // Obtiene el ladrillo actual
+                    if (currentBrick.status === BRICK_STATUS.ACTIVE) { // Si el ladrillo está activo
+                        bricksRemaining++; // Incrementa el contador de ladrillos restantes
+                        if (
+                            x > currentBrick.x &&
+                            x < currentBrick.x + brickWidth &&
+                            y > currentBrick.y &&
+                            y < currentBrick.y + brickHeight
+                        ) { // Si la bola choca con el ladrillo
+                            dy = -dy; // Cambia la dirección de la bola
+                            currentBrick.status = BRICK_STATUS.DESTROYED; // Cambia el estado del ladrillo a destruido
+                            score += 100; // Incrementa la puntuación en 100
+                        }
+                    }
+                }
+            }
+
+            // Si no quedan ladrillos activos, muestra el mensaje de victoria
+            if (bricksRemaining === 0) {
+                alert(`¡Felicidades! Has ganado con una puntuación de ${score} puntos.`);
+                document.location.reload(); // Recarga la página para reiniciar el juego
+            }
+        }
+        
+        let isGameActive = true; // Variable para controlar si el juego está activo
+
+        function moveBall() {
+            if (!isGameActive) return; // Detiene la ejecución si el juego no está activo
+
+            x += dx; // mueve la bola en x
+            y += dy; // mueve la bola en y
+
+            // colisiones con los bordes
+            if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
+                dx = -dx; // cambia la dirección de la bola
+            }
+            if (y + dy < ballRadius) {
+                dy = -dy; // cambia la dirección de la bola
+            }
+
+            const isballaspaddle = x > paddleX && x < paddleX + paddleWidth; // si la bola está en el paddle
+            const isballastouchpaddle = y + dy > paddleY; // si la bola toca el paddle
+
+            if (isballaspaddle && isballastouchpaddle) {
+                dy = -dy; // cambia la dirección de la bola
+            }
+
+            // colisión con el fondo
+            if (y + dy > canvas.height - ballRadius) {
+                showGameOverModal(); // Muestra el modal de Game Over
+            }
+        }
+
+        function cleanCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); //limpia el canvas
+        }
+        
+        const Sensibilidad_paddle = 7; //velocidad del paddle
+
+        function movePaddle() {
+            if (rightPressed && paddleX < canvas.width - paddleWidth) {
+                paddleX += Sensibilidad_paddle; //mueve el paddle a la derecha
+            } else if (leftPressed && paddleX > 0) {
+                paddleX -= Sensibilidad_paddle; //mueve el paddle a la izquierda
+            }
+        }
+
+        function showGameOverModal() {
+            isGameActive = false; // Detiene el juego
+            const modal = document.getElementById('gameOverModal');
+            const restartButton = document.getElementById('restartButton');
+
+            modal.style.display = 'block'; // Muestra el modal
+
+            // Reinicia el juego al hacer clic en el botón
+            restartButton.onclick = function () {
+                document.location.reload(); // Recarga la página
+            };
+        }
         
         function drawRect() {
-            //aqui se refresca el canvas
+            if (!isGameActive) return; // Detiene la ejecución si el juego no está activo
 
-            //dibujar todo el canvas
+            // Aquí se refresca el canvas
+            cleanCanvas();
             drawball();
             drawpaddle();
             drawbricks();
-            drawscore();
+            drawscore(); // Dibuja la puntuación
 
-            //moviemientos y choques
+            // Movimientos y choques
             collisionDetection();
             moveBall();
             movePaddle();
 
-            window.requestAnimationFrame(drawRect); //llama a la funcion para dibujar el rectangulo
+            window.requestAnimationFrame(drawRect); // Llama a la función para dibujar el rectángulo
         }
 
-
-        drawRect(); //llama a la funcion para dibujar el rectangulo
+        drawRect(); // Llama a la función para dibujar el rectángulo
+        initEvents(); // Llama a la función para inicializar los eventos
     </script>
 
 </canvas>
 <body>
 
+    <!-- Modal de Game Over -->
+    <div id="gameOverModal" class="modal">
+        <div class="modal-content">
+            <h2>Game Over</h2>
+            <p>¡Intenta de nuevo!</p>
+            <button id="restartButton">Reiniciar</button>
+        </div>
+    </div>
     
 </body>
 </html>
