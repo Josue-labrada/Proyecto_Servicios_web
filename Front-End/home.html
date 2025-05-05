@@ -134,18 +134,39 @@
                 <form class="d-flex me-3" action="./ranked.html" method="GET">
                     <input class="form-control search-form" type="search" name="amigo" placeholder="Busca tus amigos" aria-label="Search">
                 </form>
-                <div class="username-display me-3" style="background-color: #111; color: white;">
-                    Usuario 1<br>
-                    Score: 72940
-                </div>
+                <!-- Sección que solo aparece si el usuario está registrado -->
+                <div id="user-info" class="username-display me-3" style="background-color: #111; color: white; display: none;">
+                  Usuario 1<br>
+                  Score: 72940
+              </div>
 
-                <a href="#" class="ms-3 text-black" title="Configuración" data-bs-toggle="modal" data-bs-target="#settingsModal">
-                    <i class="bi bi-gear-fill fs-4"></i>
-                </a>
+              <!-- Sección que solo aparece si el usuario no está registrado -->
+              <button id="register-button" class="btn btn-primary me-3" style="display: none;" onclick="window.location.href='./login.html';">
+                Registrate
+              </button>
 
+              <a href="#" class="ms-3 text-black" title="Configuración" data-bs-toggle="modal" data-bs-target="#settingsModal">
+                  <i class="bi bi-gear-fill fs-4"></i>
+              </a>
             </div>
         </div>
     </nav>
+
+    <script> //FUNCIÓN PARA CAMBIAR EL ESTADO DEL USUARIO REGISTRADO O NO
+      var isUserRegistered = true;
+  
+      if (isUserRegistered) {
+          document.getElementById('user-info').style.display = 'block';
+          document.getElementById('register-button').style.display = 'none';
+      } else {
+          document.getElementById('user-info').style.display = 'none';
+          document.getElementById('register-button').style.display = 'block';
+      }
+    </script>
+
+
+
+
 
     <!--Carousel -->
     <div class="container mt-4">
