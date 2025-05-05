@@ -79,6 +79,14 @@
             top: 50%;
             transform: translateY(-50%);
         }
+
+        .carousel-control-prev {
+          left: 100px;
+      }
+
+        .carousel-control-next {
+          right: 100px;
+        }
         
         .carousel-inner {
             padding: 20px 40px;
@@ -96,19 +104,20 @@
             font-size: 0.9rem;
         }
         .game-card img {
-    height: 280px; /* o el alto que desees */
-    object-fit: cover;
-}
+          height: 400px; 
+          object-fit: cover;
+      }
 
     @media (min-width: 768px) {
       .carousel-inner {
-        /* removed flex styles */
+
       }
       .carousel-item {
-        /* removed flex styles */
+
       }
       .carousel-item .row {
-        /* removed flex styles */
+
+        justify-content: center;
       }
     }
     </style>
@@ -142,10 +151,11 @@
     <div class="container mt-4">
         <div id="gamesCarousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
+              <!-- Primera pagina -->
               <div class="carousel-item active">
                 <div class="row">
                   <!-- Tarjeta 1 -->
-                  <div class="col-md-4">
+                  <div class="col-md-5">
                     <div class="game-card">
                       <div class="game-title">ARKANOID</div>
                       <img src="https://www3.minijuegosgratis.com/v3/games/thumbnails/1969_1.jpg" class="d-block w-100" alt="Arkanoid game">
@@ -155,7 +165,7 @@
                     </div>
                   </div>
                   <!-- Tarjeta 2 -->
-                  <div class="col-md-4">
+                  <div class="col-md-5">
                     <div class="game-card">
                       <div class="game-title">SNAKE</div>
                       <img src="https://play-lh.googleusercontent.com/v8w4fmZli_DKkn9tN5P_tr0Wvky4zVjSf0pmd9VATiRJV-yfpI9cDwnpAMmpMh3tz94" class="d-block w-100" alt="Snake game">
@@ -164,8 +174,13 @@
                       </div>
                     </div>
                   </div>
+                </div>
+              </div>
+              <!-- Segunda pagina -->
+              <div class="carousel-item">
+                <div class="row">
                   <!-- Tarjeta 3 -->
-                  <div class="col-md-4">
+                  <div class="col-md-6">
                     <div class="game-card">
                       <div class="game-title">NUMPUZ</div>
                       <img src="https://play-lh.googleusercontent.com/2WdPCRJ0kW43Ded_bV1M0Ac1a6xO7zFoblZT_R0KfWxSwcmmi14fLnvfKKny-kis4Do=w526-h296-rw" class="d-block w-100" alt="Numpuz game">
@@ -174,12 +189,8 @@
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div class="carousel-item">
-                <div class="row">
                   <!-- Tarjeta 4 COMING SOON -->
-                  <div class="col-md-4">
+                  <div class="col-md-6">
                     <div class="game-card">
                       <div class="game-title">COMING SOON</div>
                       <img src="https://i0.wp.com/imgs.hipertextual.com/wp-content/uploads/2016/01/Mr-INCOGNITO.jpg?fit=1350%2C937&quality=50&strip=all&ssl=1" class="d-block w-100" alt="Coming Soon">
