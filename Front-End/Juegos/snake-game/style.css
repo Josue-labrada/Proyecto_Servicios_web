@@ -6,15 +6,16 @@
 }
 
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #0f1d25;
-    overflow: hidden; /* Evita el scroll si hay contenido fuera de la pantalla */
+    background-color: #222;
+    display: flex; /* Usamos flexbox para centrar */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    height: 100vh; /* Ocupa toda la altura de la ventana */
+    margin: 0; /* Elimina márgenes */
 }
 
 .wrapper {
+    margin-top: 80px; /* Agrega un margen superior para separar el juego del navbar */
     width: 90vmin; /* Ajusta el ancho para que sea más visible */
     height: 90vmin; /* Aumenta la altura para que se vea toda la cuadrícula */
     overflow: hidden;
@@ -54,6 +55,13 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Sombra para darle profundidad */
 }
 
+canvas {
+    border: 4px solid #fff;
+    background: url('./fondo\ arcanoid.jpg') repeat;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Estilos para el modal */
 .modal {
     display: none; /* Oculto por defecto */
     position: fixed;
@@ -62,6 +70,7 @@ body {
     top: 0;
     width: 100%;
     height: 100%;
+    overflow: auto;
     background-color: rgba(0, 0, 0, 0.8); /* Fondo semitransparente */
     justify-content: center;
     align-items: center;
@@ -69,21 +78,36 @@ body {
 
 .modal-content {
     background-color: #fff;
+    margin: 15% auto;
     padding: 20px;
     border-radius: 10px;
-    text-align: center;
     width: 300px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .modal-content h2 {
     margin: 0 0 10px;
-    color: #333;
+    color: #222;
 }
 
 .modal-content p {
     margin: 10px 0;
     color: #555;
+}
+
+.modal-content button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.modal-content button:hover {
+    background-color: #0056b3;
 }
 
 .modal-buttons {
@@ -104,4 +128,39 @@ body {
 
 .modal-buttons .btn:hover {
     background-color: #0056b3;
+}
+
+.navbar {
+    background-color: #f8f9fa;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #000;
+    text-decoration: none;
+}
+
+.navbar-brand img {
+    margin-right: 10px;
+}
+
+.search-form {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+}
+
+.search-form:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
