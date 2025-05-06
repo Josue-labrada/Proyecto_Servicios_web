@@ -1,4 +1,3 @@
-// controllers/userController.js
 const User = require('../models/user');
 
 exports.getAllUsers = async (req, res) => {
@@ -27,6 +26,7 @@ exports.updateUser = async (req, res) => {
   const updated = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
   res.json(updated);
 };
+
 
 exports.deleteUser = async (req, res) => {
   await User.findByIdAndDelete(req.params.id);

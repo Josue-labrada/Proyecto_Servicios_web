@@ -15,6 +15,8 @@ app.use(express.json());
 
 // ⚠️ Servir archivos estáticos de Front-End
 app.use(express.static(path.join(__dirname, '../Front-End')));
+app.use('/controllers', express.static(path.join(__dirname, '../Front-End/controllers_Front')));
+
 
 // ⚠️ Ruta raíz que carga home.html
 app.get('/', (req, res) => {
