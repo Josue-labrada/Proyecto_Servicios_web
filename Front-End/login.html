@@ -252,7 +252,7 @@
 <body>
     <!-- Formulario de Login -->
     <div class="wrapper">
-        <form action="./home.html" method="GET">
+        <form id="loginForm">
             <h1>Login</h1>
             <div class="input-box">
                 <input type="text" placeholder="Username" required>
@@ -278,7 +278,7 @@
         <div class="modal-content">
             <span class="close-modal">&times;</span>
             <h2>Crear Cuenta</h2>
-            <form action="">
+            <form id="registerForm">
                 <div class="input-box">
                     <input type="text" placeholder="Nombre completo" required>
                     <i class='bx bxs-user'></i>
@@ -309,47 +309,11 @@
         </div>
     </div>
 
-    <script>
-        const modal = document.getElementById('register-modal');
-        
-        const btn = document.getElementById('open-register');
-        
-        const closeBtn = document.querySelector('.close-modal');
-        
-        //funcion para abrir el modal
-        btn.onclick = function() {
-            modal.style.display = 'flex';
-        }
-        
-        //funcion cerrar modal
-        closeBtn.onclick = function() {
-            modal.style.display = 'none';
-        }
-        
-        //cerrar modal si se hace click fuera de la ventana del modal
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = 'none';
-            }
-        }
-        
-        //validacion contraseña
-        document.getElementById('password').addEventListener('input', function() {
-            const passwordStrength = document.querySelector('.password-strength');
-            const password = this.value;
-            
-            if (password.length >= 8 && /[0-9]/.test(password) && /[!@#$%^&?*]/.test(password)) {
-                passwordStrength.style.color = '#4CAF50';
-                passwordStrength.textContent = 'Contraseña fuerte';
-            } else if (password.length >= 6) {
-                passwordStrength.style.color = '#FFC107';
-                passwordStrength.textContent = 'Contraseña media';
-            } else {
-                passwordStrength.style.color = '#ddd';
-                passwordStrength.textContent = 'La contraseña debe tener al menos 8 caracteres, incluyendo números y símbolos (!@#$%^&?*).';
-            }
-        });
-    </script>
+    
+    <script src="Controllers/login.js"></script>
+    <script src="Controllers/register.js"></script>
+
+
 </body>
 
 </html>
