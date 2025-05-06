@@ -37,6 +37,25 @@
         .navbar-brand img {
             margin-right: 10px;
         }
+
+        #user-info {
+          background-color: #111;
+          border-radius: 20px;
+          padding: 8px 15px;
+          color: white;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          border: 1px solid #fff;
+          font-size: 0.9rem;
+          box-shadow: 0 4px 8px rgba(255,255,255,0.1);
+        }
+
+        .modal-footer .btn {
+          min-width: 120px;
+          white-space: nowrap;
+          font-size: 0.9rem;
+        }
         
         .game-card {
             border-radius: 20px;
@@ -125,49 +144,37 @@
 <body>
     <!--Navbar -->
     <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="./login.html">
-                <img src="https://www.brexa.com.ar/gaming/img/profile-control.png" alt="Gamepad Logo" width="50" height="50">
-                JUEGOS COOL.COM
-            </a>
-            <div class="d-flex align-items-center">
-                <form class="d-flex me-3" action="./ranked.html" method="GET">
-                    <input class="form-control search-form" type="search" name="amigo" placeholder="Busca tus amigos" aria-label="Search">
-                </form>
-                <!-- Sección que solo aparece si el usuario está registrado -->
-                <div id="user-info" class="username-display me-3" style="background-color: #111; color: white; display: none;">
-                  Usuario 1<br>
-                  Score: 72940
-              </div>
-
-              <!-- Sección que solo aparece si el usuario no está registrado -->
-              <button id="register-button" class="btn btn-primary me-3" style="display: none;" onclick="window.location.href='./login.html';">
-                Registrate
-              </button>
-
-              <a href="#" class="ms-3 text-black" title="Configuración" data-bs-toggle="modal" data-bs-target="#settingsModal">
-                  <i class="bi bi-gear-fill fs-4"></i>
-              </a>
+      <div class="container-fluid">
+        <a class="navbar-brand" href="./login.html">
+          <img src="https://www.brexa.com.ar/gaming/img/profile-control.png" alt="Gamepad Logo" width="50" height="50">
+          JUEGOS COOL.COM
+        </a>
+        <div class="d-flex align-items-center">
+          <form class="d-flex me-3" action="./ranked.html" method="GET">
+            <input class="form-control search-form" type="search" name="amigo" placeholder="Busca tus amigos" aria-label="Search">
+          </form>
+          
+          <!-- Si está registrado -->
+          <div id="user-info" class="me-3" style="display: none;">
+            <img id="user-photo" src="" alt="Foto perfil" width="45" height="45" class="rounded-circle me-2 border border-white">
+            <div>
+              <div id="user-name">Usuario</div>
+              <div id="user-score">Score: 0</div>
             </div>
+          </div>
+          
+          <!-- Si no está registrado -->
+           <button id="register-button" class="btn btn-primary me-3" style="display: none;" onclick="window.location.href='./login.html';">
+            Registrate
+          </button>
+          
+          <a href="#" class="ms-3 text-black" title="Configuración" data-bs-toggle="modal" data-bs-target="#settingsModal">
+            <i class="bi bi-gear-fill fs-4"></i>
+          </a>
         </div>
+      </div>
     </nav>
-
-    <script> //FUNCIÓN PARA CAMBIAR EL ESTADO DEL USUARIO REGISTRADO O NO
-      var isUserRegistered = true;
-  
-      if (isUserRegistered) {
-          document.getElementById('user-info').style.display = 'block';
-          document.getElementById('register-button').style.display = 'none';
-      } else {
-          document.getElementById('user-info').style.display = 'none';
-          document.getElementById('register-button').style.display = 'block';
-      }
-    </script>
-
-
-
-
-
+    
     <!--Carousel -->
     <div class="container mt-4">
         <div id="gamesCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -238,8 +245,8 @@
         </div>
     </div>
 
-    <!--Modal de Configuración -->
-    <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+    <!-- Modal de Configuración -->
+     <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content bg-dark text-white">
           <div class="modal-header">
@@ -258,13 +265,17 @@
               </div>
             </form>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">Eliminar cuenta</button>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmSaveModal">Guardar cambios</button>
+          <div class="modal-footer justify-content-between flex-wrap">
+            <button type="button" class="btn btn-secondary" onclick="cerrarSesion()">Cerrar sesión</button>
+            <div class="d-flex flex-wrap gap-2 ms-auto">
+              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">Eliminar cuenta</button>
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmSaveModal">Guardar cambios</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
+
 
     <!-- Modal de Confirmación para Guardar Cambios -->
     <div class="modal fade" id="confirmSaveModal" tabindex="-1" aria-labelledby="confirmSaveModalLabel" aria-hidden="true">
@@ -306,23 +317,7 @@
 
     <!--Bootstrap JS Bundle with Popper -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script>
-      function confirmarEliminacion() {
-        alert("Cuenta eliminada.");
-        const deleteModal = bootstrap.Modal.getInstance(document.getElementById('confirmDeleteModal'));
-        deleteModal.hide();
-        const configModal = bootstrap.Modal.getInstance(document.getElementById('settingsModal'));
-        configModal.hide();
-      }
-      function confirmarGuardado() {
-        alert("Cambios guardados exitosamente.");
-        const modal = bootstrap.Modal.getInstance(document.getElementById('confirmSaveModal'));
-        modal.hide();
-        const configModal = bootstrap.Modal.getInstance(document.getElementById('settingsModal'));
-        configModal.hide();
-      }
-    </script>
     
-    <script src="/controllers/register.js"></script>
+    <script src="/controllers/navbar.js"></script>
 </body>
 </html>
