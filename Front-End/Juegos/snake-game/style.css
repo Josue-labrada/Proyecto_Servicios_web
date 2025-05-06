@@ -11,13 +11,17 @@ body {
     align-items: center;
     height: 100vh;
     background-color: #0f1d25;
+    overflow: hidden; /* Evita el scroll si hay contenido fuera de la pantalla */
 }
+
 .wrapper {
-    width: 65vmin;
-    height: 70vmin;
+    width: 90vmin; /* Ajusta el ancho para que sea más visible */
+    height: 90vmin; /* Aumenta la altura para que se vea toda la cuadrícula */
     overflow: hidden;
     border-radius: 20px;
     background-color: #23393a;
+    display: flex;
+    flex-direction: column; /* Asegura que los elementos internos se apilen verticalmente */
 }
 
 .game-details {
@@ -35,6 +39,7 @@ body {
     height: 100%;
     display: grid;
     grid-template: repeat(30, 1fr) / repeat(30, 1fr);
+    margin: auto; /* Centra la cuadrícula dentro del contenedor */
 }
 
 .play-board .food {
@@ -43,6 +48,60 @@ body {
 }
 
 .play-board .head {
-    background-color: #85d585;
-    border-radius: 20%;
+    background: linear-gradient(145deg, #6bcf6b, #4caf50); /* Degradado verde */
+    border: 2px solid #3e8e41; /* Borde oscuro para contraste */
+    border-radius: 50%; /* Forma redondeada */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Sombra para darle profundidad */
+}
+
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Fondo semitransparente */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h2 {
+    margin: 0 0 10px;
+    color: #333;
+}
+
+.modal-content p {
+    margin: 10px 0;
+    color: #555;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.modal-buttons .btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.modal-buttons .btn:hover {
+    background-color: #0056b3;
 }
