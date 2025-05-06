@@ -255,16 +255,18 @@
         <form id="loginForm">
             <h1>Login</h1>
             <div class="input-box">
-                <input type="text" placeholder="Username" required>
+                <input type="text" name="username" placeholder="Username" required>
                 <i class='bx bxs-user'></i>
             </div>
             <div class="input-box">
-                <input type="password" placeholder="Password" required>
+                <input type="password" name="password" placeholder="Password" required>
                 <i class='bx bxs-lock-alt'></i>
-            </div>
+            </div>            
             <div class="remember-forgot">
-                <label><input type="checkbox"> Remember Me</label>
-            </div>
+                <label>
+                  <input type="checkbox" id="rememberMe"> Remember Me
+                </label>
+              </div>              
             <button type="submit" class="btn">Login</button>
             <div class="register-link">
                 <p>¿No tienes cuenta? <a href="#" id="open-register">Register</a></p>
