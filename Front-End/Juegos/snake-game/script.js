@@ -68,7 +68,7 @@ const initGame = () => {
     if (snakeX === foodX && snakeY === foodY) {
         changeFoodPosition();
         snakeBody.push([]); // Agrega un nuevo segmento al final
-        score++; // Incrementa el puntaje
+        score += 50; // Incrementa el puntaje
         scoreBoard.innerText = `Score: ${score}`; // Actualiza el puntaje en la pantalla
     }
 
