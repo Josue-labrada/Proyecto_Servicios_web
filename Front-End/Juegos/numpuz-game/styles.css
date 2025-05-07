@@ -195,3 +195,35 @@ h2 {
 #modal-button:hover {
     background-color: #0059b3; /* Azul más oscuro */
 }
+
+.difficulty-container {
+    position: absolute; /* Posiciona la barra de forma absoluta */
+    top: 200px; /* Justo debajo del navbar */
+    left: 50%; /* Centra horizontalmente */
+    transform: translateX(-50%); /* Ajusta el centrado horizontal */
+    background-color: #ffffff; /* Fondo blanco */
+    padding: 10px 20px; /* Espaciado interno */
+    border-radius: 20px; /* Bordes redondeados */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Sombra */
+    z-index: 1000; /* Asegura que esté encima del contenido */
+    text-align: center; /* Centra los botones dentro del contenedor */
+}
+
+.difficulty-button {
+    background-color: #0073e6; /* Azul brillante */
+    color: white; /* Texto blanco */
+    border: none; /* Sin borde */
+    padding: 8px 16px; /* Espaciado interno */
+    border-radius: 20px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor de mano */
+    font-size: 14px; /* Tamaño de fuente */
+    margin: 0 10px; /* Espaciado entre botones */
+    transition: background-color 0.3s, transform 0.2s; /* Transiciones suaves */
+    box-shadow: 0 4px 10px rgba(0, 115, 230, 0.3); /* Sombra */
+}
+
+.difficulty-button:hover {
+    background-color: #0059b3; /* Azul más oscuro al pasar el mouse */
+    transform: scale(1.05); /* Efecto de agrandamiento */
+    box-shadow: 0 6px 15px rgba(0, 89, 179, 0.5); /* Sombra más intensa */
+}

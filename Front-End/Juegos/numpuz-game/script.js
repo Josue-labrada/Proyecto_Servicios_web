@@ -12,6 +12,7 @@ let timer; // Variable para el temporizador
 let timeLeft = 60; // Tiempo inicial en segundos
 let gameActive = false; // Variable de control para saber si el juego está activo
 let score = 0; // Puntaje inicial
+let baseScore = 100; // Puntaje base para cada nivel de dificultad
 
 // Función para revolver el tablero
 function shuffleMatrix() {
@@ -39,23 +40,45 @@ modalButton.addEventListener('click', () => {
     }
 });
 
-function startGame() {
-    timeLeft = 60; // Reinicia el tiempo
-    timerDisplay.textContent = timeLeft;
-    startButton.style.display = 'none'; // Oculta el botón de inicio
-    gameActive = true; // Activa el juego
+let isFirstGame = true;
+let selectedTime = 60;
+let selectedScore = 100;
 
-    // Inicia el temporizador
+function selectDifficulty(time, score) {
+    selectedTime = time; // Guarda la dificultad seleccionada
+    selectedScore = score;
+    timeLeft = selectedTime; // Establece el tiempo para la dificultad seleccionada
+    baseScore = selectedScore; // Establece el puntaje base para la dificultad seleccionada
+    timerDisplay.textContent = timeLeft; // Muestra el tiempo seleccionado
+    document.getElementById('difficulty-selection').style.display = 'none'; // Oculta el selector de dificultad
+    startButton.style.display = 'block'; // Muestra el botón de inicio
+}
+
+function startGame() {
+    timeLeft = selectedTime; // Usa el tiempo de la dificultad seleccionada
+    baseScore = selectedScore; // Usa el puntaje de la dificultad seleccionada
+    document.getElementById('difficulty-selection').style.display = 'none'; // Oculta el selector de dificultad
+    startButton.style.display = 'none';
+    gameActive = true;
+
+    // Siempre mezcla el tablero al iniciar el juego
+    matrix = shuffleMatrix();
+    drawTokens();
+
+    isFirstGame = false;
+
+    // Inicia el temporizador inmediatamente
+    timerDisplay.textContent = timeLeft;
     timer = setInterval(() => {
         timeLeft--;
         timerDisplay.textContent = timeLeft;
 
         if (timeLeft <= 0) {
-            clearInterval(timer); // Detiene el temporizador
-            gameActive = false; // Desactiva el juego
-            showModal('¡Tiempo agotado!', 'No lograste completar el rompecabezas. Inténtalo de nuevo.');
-            matrix = shuffleMatrix(); // Mezcla el tablero nuevamente
-            drawTokens(); // Redibuja el tablero
+            clearInterval(timer);
+            gameActive = false;
+            showModal('¡Tiempo agotado!', 'No lograste completar el rompecabezas. ¿Quieres intentar de nuevo o cambiar la dificultad?');
+            document.getElementById('difficulty-selection').style.display = 'block'; // Muestra el selector de dificultad
+            startButton.style.display = 'block'; // Muestra el botón de inicio
         }
     }, 1000);
 }
@@ -63,21 +86,23 @@ function startGame() {
 function addEventListeners() {
     let tokens = document.querySelectorAll('.token');
     tokens.forEach(token => token.addEventListener('click', (e) => {
-        if (!gameActive) return; // Evita que los bloques se muevan si el juego no está activo
+        if (!gameActive) return;
 
         let actualPosition = searchPosition(token.innerText);
         let emptyPosition = searchPosition(' ');
         let movement = canItMove(actualPosition, emptyPosition);
         if (movement) {
             updateMatrix(token.innerText, actualPosition, emptyPosition);
-            drawTokens(); // Redibuja el tablero después de actualizar la matriz
+            drawTokens();
             if (compareMatrix()) {
-                clearInterval(timer); // Detiene el temporizador si el jugador gana
-                launchConfetti(); // Llama a la función para lanzar confeti
-                showModal('¡Felicidades!', 'Has completado el rompecabezas. ¡Buen trabajo!');
-                gameActive = false; // Desactiva el juego
-                score += 100; // Incrementa el puntaje en 100
-                scoreDisplay.textContent = `Puntuación: ${score}`; // Actualiza el puntaje en pantalla
+                clearInterval(timer);
+                launchConfetti();
+                showModal('¡Felicidades!', `Has completado el rompecabezas. ¿Quieres intentar de nuevo o cambiar la dificultad?`);
+                gameActive = false;
+                score += baseScore; // Incrementa el puntaje con el puntaje base seleccionado
+                scoreDisplay.textContent = `Puntuación: ${score}`;
+                document.getElementById('difficulty-selection').style.display = 'block'; // Muestra el selector de dificultad
+                startButton.style.display = 'block'; // Muestra el botón de inicio
             }
         }
     }));
