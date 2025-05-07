@@ -128,6 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (res.ok) {
           alert(`🎁 Regalaste ${points} puntos a @${friendToDonate}`);
           sessionStorage.setItem("user", JSON.stringify(result.sender));
+          document.getElementById("user-score").textContent = 'Score: ' + result.sender.score;
           cargarAmigos();
           cargarRankingGlobal();
           bootstrap.Modal.getInstance(document.getElementById("confirmDonatePointsModal")).hide();
