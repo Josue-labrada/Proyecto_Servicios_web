@@ -87,10 +87,14 @@ document.addEventListener('DOMContentLoaded', () => {
           alert("❌ Error al registrar: " + (result.message || "Error desconocido"));
           return;
         }
-
+        
+        sessionStorage.setItem('user', JSON.stringify(result));
+                
         alert(`✅ Usuario '${result.username}' registrado exitosamente`);
         registerForm.reset();
         modal.style.display = 'none';
+        window.location.href = 'home.html';
+
       } catch (error) {
         console.error("❌ Error de red o del servidor:", error);
         alert("❌ Error al registrar: " + error.message);
