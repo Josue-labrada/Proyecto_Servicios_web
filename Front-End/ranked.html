@@ -172,6 +172,76 @@
   </div>
 </div>
 
+    <!-- Modal de Configuración -->
+    <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content bg-dark text-white">
+          <div class="modal-header">
+            <h5 class="modal-title" id="settingsModalLabel">Configuración de cuenta</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <form id="settingsForm">
+              <div class="mb-3">
+                <label for="emailInput" class="form-label">Correo electrónico</label>
+                <input type="email" class="form-control" id="emailInput" placeholder="usuario@example.com">
+              </div>
+              <div class="mb-3">
+                <label for="passwordInput" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="passwordInput" placeholder="Nueva contraseña">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer justify-content-between flex-wrap">
+            <button type="button" class="btn btn-secondary" onclick="cerrarSesion()">Cerrar sesión</button>
+            <div class="d-flex flex-wrap gap-2 ms-auto">
+              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">Eliminar cuenta</button>
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmSaveModal">Guardar cambios</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Modal de Confirmación para Guardar Cambios -->
+    <div class="modal fade" id="confirmSaveModal" tabindex="-1" aria-labelledby="confirmSaveModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content bg-dark text-white">
+          <div class="modal-header">
+            <h5 class="modal-title" id="confirmSaveModalLabel">¿Guardar cambios?</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            ¿Estás seguro de que deseas guardar los cambios en tu cuenta?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-success" onclick="confirmarGuardado()">Sí, guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de Confirmación para Eliminar Cuenta -->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content bg-dark text-white">
+          <div class="modal-header">
+            <h5 class="modal-title" id="confirmDeleteModalLabel">¿Eliminar cuenta?</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            ¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-danger" onclick="confirmarEliminacion()">Sí, eliminar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
