@@ -25,9 +25,13 @@ document.addEventListener('DOMContentLoaded', () => {
           return;
         }
 
-        // Guardar en localStorage si "Remember Me" está activo, si no, en sessionStorage
-        const storage = rememberMe ? localStorage : sessionStorage;
-        storage.setItem('user', JSON.stringify(user));
+
+        sessionStorage.setItem('user', JSON.stringify(user));
+
+        // Guardar TAMBIÉN en localStorage si "Remember Me" está activo
+        if (rememberMe) {
+          localStorage.setItem('user', JSON.stringify(user));
+        }
 
         alert(`✅ Bienvenido ${user.name}`);
         window.location.href = 'home.html';

@@ -6,10 +6,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const userScore = document.getElementById('user-score');
   
     const storedUser = sessionStorage.getItem('user');
+    const localStorageuser = localStorage.getItem('user');
   
+    let user = null;
     if (storedUser) {
-      const user = JSON.parse(storedUser);
-  
+      user = JSON.parse(storedUser);
+    } else if (localStorageuser) {
+      user = JSON.parse(localStorageuser);
+    }
+    if (user) {
       userInfo.style.display = 'flex';
       registerButton.style.display = 'none';
   
@@ -94,6 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function cerrarSesion() {
     sessionStorage.removeItem('user');
+    localStorage.removeItem('user');
     window.location.href = 'login.html';
   }
   
