@@ -5,9 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Numpuz</title>
     <link rel="stylesheet" href="./styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
-    <div class="board"></div>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../../home.html">
+                <img src="https://www.brexa.com.ar/gaming/img/profile-control.png" alt="Gamepad Logo" width="50" height="50">
+                JUEGOS COOL.COM
+            </a>
+            <div class="d-flex align-items-center">
+            </div>
+        </div>
+    </nav>
+
+    <div class="game-container">
+        <h2>¡Completa el rompecabezas!</h2>
+        <div id="timer">60</div>
+        <div class="board"></div>
+        <div class="controls">
+            <button id="startButton">Empezar</button>
+            <div id="score">Puntuación: 0</div>
+        </div>
+    </div>
+
+    <div id="modal" class="modal hidden">
+        <div class="modal-content">
+            <h2 id="modal-title"></h2>
+            <p id="modal-message"></p>
+            <button id="modal-button">Aceptar</button>
+        </div>
+    </div>
+
     <script src="./script.js"></script>
 </body>
 </html>
