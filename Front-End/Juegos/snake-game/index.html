@@ -6,20 +6,58 @@
     <title>SNAKE</title>
     <link rel="stylesheet" href="./style.css">
     <link rel="icon" href="https://www4.minijuegosgratis.com/v3/games/thumbnails/246309_7_sq.jpg" type="image/jpeg">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
+  <style>
+    body {
+      background-color: #000;
+      margin: 0;
+      padding-top: 80px; /* Altura aproximada de la navbar */
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - 80px); /* Altura del viewport menos la navbar */
+    }
+  </style>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="../../home.html">
-                <img src="https://www.brexa.com.ar/gaming/img/profile-control.png" alt="Gamepad Logo" width="50" height="50">
-                JUEGOS COOL.COM
-            </a>
-            <div class="d-flex align-items-center">
-                <form class="d-flex me-3" action="./ranked.html" method="GET">
-                </form>
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid justify-content-between">
+          <a class="navbar-brand" href="../../home.html">
+            <img src="https://www.brexa.com.ar/gaming/img/profile-control.png" alt="Gamepad Logo" width="50" height="50">
+            JUEGOS COOL.COM
+          </a>
+          <div class="d-flex align-items-center">
+            <button class="btn btn-warning me-3" onclick="window.location.href='../../ranked.html';">
+                Top jugadores y amigos
+            </button>
+            
+            <!-- Si está registrado -->
+            <div id="user-info" class="me-3" style="display: none;">
+              <img id="user-photo" src="" alt="Foto perfil" width="45" height="45" class="rounded-circle me-2 border border-white">
+              <div>
+                <div id="user-name">Usuario</div>
+                <div id="user-score">Score: 0</div>
+              </div>
             </div>
+            
+            <!-- Si no está registrado -->
+            <button id="register-button" class="btn btn-primary me-3" style="display: none;" onclick="window.location.href='../../login.html';">
+              Registrate
+            </button>
+            
+            <a href="#" class="ms-3 text-black" title="Configuración" data-bs-toggle="modal" data-bs-target="#settingsModal">
+              <i class="bi bi-gear-fill fs-4"></i>
+            </a>
+          </div>
         </div>
     </nav>
 
@@ -44,5 +82,78 @@
     </div>
 
     <script src="script.js"></script>
+
+        <!-- Modal de Configuración -->
+<div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content bg-dark text-white">
+        <div class="modal-header">
+          <h5 class="modal-title" id="settingsModalLabel">Configuración de cuenta</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <form id="settingsForm">
+            <div class="mb-3">
+              <label for="emailInput" class="form-label">Correo electrónico</label>
+              <input type="email" class="form-control" id="emailInput" placeholder="usuario@example.com">
+            </div>
+            <div class="mb-3">
+              <label for="passwordInput" class="form-label">Contraseña</label>
+              <input type="password" class="form-control" id="passwordInput" placeholder="Nueva contraseña">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer justify-content-between flex-wrap">
+          <button type="button" class="btn btn-secondary" onclick="cerrarSesion()">Cerrar sesión</button>
+          <div class="d-flex flex-wrap gap-2 ms-auto">
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">Eliminar cuenta</button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmSaveModal">Guardar cambios</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal de Confirmación para Guardar Cambios -->
+  <div class="modal fade" id="confirmSaveModal" tabindex="-1" aria-labelledby="confirmSaveModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content bg-dark text-white">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmSaveModalLabel">¿Guardar cambios?</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          ¿Estás seguro de que deseas guardar los cambios en tu cuenta?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-success" onclick="confirmarGuardado()">Sí, guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal de Confirmación para Eliminar Cuenta -->
+  <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content bg-dark text-white">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmDeleteModalLabel">¿Eliminar cuenta?</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          ¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-danger" onclick="confirmarEliminacion()">Sí, eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/controllers/navbar.js"></script>
+    
 </body>
 </html>
