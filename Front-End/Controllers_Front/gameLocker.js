@@ -8,26 +8,30 @@ document.addEventListener('DOMContentLoaded', () => {
     // Función específica para el juego NUMPUZ
     function applyNumpuzLock() {
       const numpuzCard = document.getElementById('numpuz-card');
-      if (!numpuzCard) return; 
-      
+      const numpuzLink = numpuzCard?.closest('a');
+      if (!numpuzCard || !numpuzLink) return;
+    
       numpuzCard.style.position = 'relative';
-      
+    
       const user = getUserFromStorage();
-      console.log("Usuario cargado:", user);
-      
+    
       removeExistingLockOverlay(numpuzCard);
-      
       removeBlurFromCardContent(numpuzCard);
-      
-      if (!user) {
-        const lockOverlay = createLockOverlay("Inicia sesión y desbloquea este juego");
+    
+      if (!user || user.score < 1000) {
+        const pointsNeeded = user ? 1000 - user.score : 'Inicia sesión';
+        const lockOverlay = createLockOverlay(
+          typeof pointsNeeded === 'number'
+            ? `Juego bloqueado, debes tener 1000 puntos para poder jugarlo!<br>Te faltan ${pointsNeeded} puntos.`
+            : `Inicia sesión y desbloquea este juego`
+        );
         numpuzCard.appendChild(lockOverlay);
         applyBlurToCardContent(numpuzCard);
-      } else if (user.score < 1000) {
-        const pointsNeeded = 1000 - user.score;
-        const lockOverlay = createLockOverlay(`Juego bloqueado, debes tener 1000 puntos para poder jugarlo!<br>Te faltan ${pointsNeeded} puntos.`);
-        numpuzCard.appendChild(lockOverlay);
-        applyBlurToCardContent(numpuzCard);
+    
+        //bloquea el click en el enlace
+        numpuzLink.addEventListener('click', function (e) {
+          e.preventDefault();
+        });
       }
     }
     
@@ -104,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
             border-radius: 20px;
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
+            pointer-events: all;
           }
           
           .game-lock-icon {
