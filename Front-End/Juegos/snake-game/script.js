@@ -7,8 +7,80 @@ let snakeX = 5, snakeY = 10;
 let velocityX = 0, velocityY = 0;
 let snakeBody = [[snakeX, snakeY]];
 let gameOver = false;
-let setIntervalId;
-let score = 0;
+
+// Variables globales
+let gameSpeed = 300; // Velocidad inicial del juego (en milisegundos)
+let gameInterval;
+let pointsPerFood = 50; // Puntos iniciales por comida
+let gameActive = false; // Estado del juego
+let score = 0; // Puntaje inicial
+let scoreElement = document.getElementById('score');
+let difficultyButtons = document.getElementById('difficulty-buttons');
+
+// Función para establecer la dificultad
+function setDifficulty(level) {
+    // Restablece los estilos de los botones
+    document.querySelectorAll('.difficulty-button').forEach(button => {
+        button.classList.remove('active');
+    });
+
+    // Ajusta la velocidad y los puntos según el nivel
+    switch (level) {
+        case 'easy':
+            gameSpeed = 200; // Velocidad lenta
+            pointsPerFood = 50; // Puntos por comida
+            document.getElementById('easy-button').classList.add('active');
+            break;
+        case 'medium':
+            gameSpeed = 100; // Velocidad media
+            pointsPerFood = 100; // Puntos por comida
+            document.getElementById('medium-button').classList.add('active');
+            break;
+        case 'hard':
+            gameSpeed = 40; // Velocidad rápida
+            pointsPerFood = 150; // Puntos por comida
+            document.getElementById('hard-button').classList.add('active');
+            break;
+    }
+    startGame(); // Inicia el juego después de seleccionar la dificultad
+}
+
+// Función para iniciar el juego
+function startGame() {
+    gameActive = true; // Cambia el estado del juego a activo
+    score = 0; // Reinicia el puntaje
+    scoreElement.textContent = `Score: ${score}`; // Actualiza el puntaje en pantalla
+
+    // Oculta los botones de dificultad y muestra el puntaje
+    difficultyButtons.style.display = 'none';
+    scoreElement.style.display = 'block';
+
+    restartGame(); // Reinicia el juego con la nueva configuración
+}
+
+// Función para reiniciar el juego con la nueva velocidad
+function restartGame() {
+    clearInterval(gameInterval); // Detiene el juego actual
+    gameInterval = setInterval(updateGame, gameSpeed); // Reinicia el juego con la nueva velocidad
+}
+
+// Función principal del juego
+function updateGame() {
+    if (!gameActive) return; // Si el juego no está activo, no continúa
+
+    initGame();
+}
+
+// Función para finalizar el juego
+function endGame() {
+    gameActive = false; // Cambia el estado del juego a inactivo
+
+    // Muestra los botones de dificultad y oculta el puntaje
+    difficultyButtons.style.display = 'flex';
+    scoreElement.style.display = 'none';
+
+    clearInterval(gameInterval); // Detiene el intervalo del juego
+}
 
 const changeFoodPosition = () => {
     foodX = Math.floor(Math.random() * 20) + 1;
@@ -16,7 +88,7 @@ const changeFoodPosition = () => {
 };
 
 const handGameOver = () => {
-    clearInterval(setIntervalId); // Detiene el intervalo
+    clearInterval(gameInterval); // Detiene el intervalo
 
     const modal = document.getElementById('gameOverModal');
     const restartButton = document.getElementById('restartButton');
@@ -68,7 +140,7 @@ const initGame = () => {
     if (snakeX === foodX && snakeY === foodY) {
         changeFoodPosition();
         snakeBody.push([]); // Agrega un nuevo segmento al final
-        score += 50; // Incrementa el puntaje
+        score += pointsPerFood; // Incrementa el puntaje según la dificultad
         scoreBoard.innerText = `Score: ${score}`; // Actualiza el puntaje en la pantalla
     }
 
@@ -101,7 +173,4 @@ const changeDirection = (e) => {
 };
 
 changeFoodPosition();
-setIntervalId = setInterval(() => {
-    initGame();
-}, 125); // Actualiza el juego cada 125 ms
 document.addEventListener("keydown", changeDirection);

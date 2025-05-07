@@ -15,9 +15,9 @@ body {
 }
 
 .wrapper {
-    margin-top: 80px; /* Agrega un margen superior para separar el juego del navbar */
+    margin-top: 95px; /* Agrega un margen superior para separar el juego del navbar */
     width: 90vmin; /* Ajusta el ancho para que sea más visible */
-    height: 90vmin; /* Aumenta la altura para que se vea toda la cuadrícula */
+    height: 5vmin; /* Aumenta la altura para que se vea toda la cuadrícula */
     overflow: hidden;
     border-radius: 20px;
     background-color: #23393a;
@@ -26,18 +26,54 @@ body {
 }
 
 .game-details {
-    font-size: 1.2rem;
-    color:beige;
-    font-weight: 500;
-    padding: 20px 27px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Espacia los elementos */
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.score {
+    font-size: 1.5rem;
+    color: white;
+    font-weight: bold;
+    margin-top: 20px; /* Espacio entre el puntaje y el borde superior */
+    
+}
+
+.difficulty-buttons {
+    display: flex;
+    gap: 10px; /* Espaciado entre botones */
+    margin-top: 20px; /* Espacio entre los botones y el borde superior */
+}
+
+.difficulty-button {
+    background-color: #0073e6;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 10px rgba(0, 115, 230, 0.3);
+}
+
+.difficulty-button:hover {
+    background-color: #0059b3;
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 89, 179, 0.5);
+}
+
+.difficulty-button.active {
+    background-color: #ffcc00; /* Resalta el botón seleccionado */
+    color: black;
+    font-weight: bold;
 }
 
 .play-board {
     background-color: #091724;
-    width: 90%;
-    height: 90%;
+    width: 88%;
+    height: 88%;
     display: grid;
     grid-template: repeat(30, 1fr) / repeat(30, 1fr);
     margin: auto; /* Centra la cuadrícula dentro del contenedor */
@@ -63,71 +99,75 @@ canvas {
 
 /* Estilos para el modal */
 .modal {
-    display: none; /* Oculto por defecto */
+    display: flex; /* Flexbox para centrar */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
     position: fixed;
     z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;
     background-color: rgba(0, 0, 0, 0.8); /* Fondo semitransparente */
-    justify-content: center;
-    align-items: center;
 }
 
 .modal-content {
     background-color: #fff;
-    margin: 15% auto;
-    padding: 20px;
-    border-radius: 10px;
-    width: 300px;
+    padding: 15px 20px; /* Espaciado interno */
+    border-radius: 10px; /* Bordes redondeados */
+    width: 20px; /* Ancho reducido */
     text-align: center;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Sombra */
+    animation: fadeIn 0.3s ease-in-out; /* Animación de entrada */
 }
 
 .modal-content h2 {
     margin: 0 0 10px;
     color: #222;
+    font-size: 25px; /* Tamaño de fuente reducido */
+    font-weight: bold;
 }
 
 .modal-content p {
-    margin: 10px 0;
+    margin: 10px 0 15px;
     color: #555;
-}
-
-.modal-content button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.modal-content button:hover {
-    background-color: #0056b3;
+    font-size: 14px; /* Tamaño de fuente reducido */
 }
 
 .modal-buttons {
     display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
+    justify-content: space-between; /* Espacia los botones */
+    gap: 25px; /* Espaciado entre botones */
+    margin-top: 15px; /* Espaciado superior */
 }
 
 .modal-buttons .btn {
     background-color: #007bff;
     color: white;
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 5px 10px; /* Reduce el tamaño de los botones */
+    border-radius: 5px; /* Bordes redondeados */
     cursor: pointer;
-    font-size: 16px;
+    font-size: 12px; /* Tamaño de fuente reducido */
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .modal-buttons .btn:hover {
     background-color: #0056b3;
+    transform: scale(1.05); /* Efecto de agrandamiento */
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 .navbar {
