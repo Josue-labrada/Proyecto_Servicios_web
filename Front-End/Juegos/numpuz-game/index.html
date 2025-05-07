@@ -16,6 +16,27 @@
                 JUEGOS COOL.COM
             </a>
             <div class="d-flex align-items-center">
+                <button class="btn btn-warning me-3" onclick="window.location.href='../../ranked.html';">
+                    Top jugadores y amigos
+                </button>
+                
+                <!-- Si está registrado -->
+                <div id="user-info" class="me-3" style="display: none;">
+                    <img id="user-photo" src="" alt="Foto perfil" width="45" height="45" class="rounded-circle me-2 border border-white">
+                    <div>
+                        <div id="user-name">Usuario</div>
+                        <div id="user-score">Score: 0</div>
+                    </div>
+                </div>
+                
+                <!-- Si no está registrado -->
+                <button id="register-button" class="btn btn-primary me-3" style="display: none;" onclick="window.location.href='../../login.html';">
+                    Registrate
+                </button>
+                
+                <a href="#" class="ms-3 text-black" title="Configuración" data-bs-toggle="modal" data-bs-target="#settingsModal">
+                    <i class="bi bi-gear-fill fs-4"></i>
+                </a>
             </div>
         </div>
     </nav>

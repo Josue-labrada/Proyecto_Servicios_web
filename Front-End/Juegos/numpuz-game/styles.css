@@ -15,7 +15,7 @@ body {
 }
 
 .navbar {
-    background-color: #98a2aa; /* Azul brillante */
+    background-color: #0073e6; /* Azul brillante */
     padding: 10px 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     width: 100%;
@@ -35,6 +35,36 @@ body {
 
 .navbar-brand img {
     margin-right: 10px;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    border: none;
+    color: black;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+#user-info {
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+#user-info img {
+    border: 2px solid white;
+}
+
+#user-name {
+    font-weight: bold;
+}
+
+#user-score {
+    font-size: 14px;
+    color: #ccc;
 }
 
 .game-container {
