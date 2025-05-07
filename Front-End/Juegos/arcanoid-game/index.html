@@ -311,8 +311,7 @@
 
             // Si no quedan ladrillos activos, muestra el mensaje de victoria
             if (bricksRemaining === 0) {
-                alert(`¡Felicidades! Has ganado con una puntuación de ${score} puntos.`);
-                document.location.reload(); // Recarga la página para reiniciar el juego
+                showVictoryModal(); // Muestra el modal de victoria
             }
         }
         
@@ -332,10 +331,11 @@
                 dy = -dy; // cambia la dirección de la bola
             }
 
-            const isballaspaddle = x > paddleX && x < paddleX + paddleWidth; // si la bola está en el paddle
-            const isballastouchpaddle = y + dy > paddleY; // si la bola toca el paddle
+            const isBallOverPaddle = y + dy > paddleY && y < paddleY + paddleHeight;
+            const isBallOnPaddle = x > paddleX && x < paddleX + paddleWidth;
 
-            if (isballaspaddle && isballastouchpaddle) {
+            // Solo cambia la dirección si la bola está sobre el paddle y moviéndose hacia abajo
+            if (isBallOnPaddle && isBallOverPaddle && dy > 0) {
                 dy = -dy; // cambia la dirección de la bola
             }
 
@@ -390,11 +390,32 @@
             window.requestAnimationFrame(drawRect); // Llama a la función para dibujar el rectángulo
         }
 
+        // Modal de victoria
+        function showVictoryModal() {
+            isGameActive = false; // Detiene el juego
+            const modal = document.getElementById('victoryModal');
+            const scoreElement = document.getElementById('victoryScore');
+            
+            scoreElement.textContent = score; // Muestra la puntuación
+            modal.style.display = 'block'; // Muestra el modal
+        }
+
         drawRect(); // Llama a la función para dibujar el rectángulo
         initEvents(); // Llama a la función para inicializar los eventos
     </script>
 
-</canvas>
+        </canvas>
+    <!-- Modal de Victoria -->
+    <div id="victoryModal" class="modal">
+        <div class="modal-content">
+            <h2>¡Felicidades!</h2>
+            <p>Has ganado con una puntuación de <span id="victoryScore"></span> puntos.</p>
+            <div class="modal-buttons">
+                <button onclick="document.location.reload()">Jugar de nuevo</button>
+                <a href="../../home.html" class="btn">Regresar a Home</a>
+            </div>
+        </div>
+    </div>
 
     <!-- Modal de Game Over -->
     <div id="gameOverModal" class="modal">
@@ -446,6 +467,7 @@
             display: flex;
             justify-content: space-around;
             margin-top: 20px;
+            gap: 20px;
         }
     
         .modal-buttons button,
