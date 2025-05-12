@@ -176,12 +176,13 @@
         const $bricks = document.querySelector('#bricks'); //selecciona la imagen de los bricks
         const $sprite = document.querySelector('#sprite'); //selecciona la imagen del sprite
         //variables de la bola
-        const ballRadius = 5; //radio de la bola
-        let x = canvas.width / 2; //posicion x de la bola
-        let y = canvas.height - 29; //posicion y de la bola
-        let dx = 2; //velocidad de la bola en x
-        let dy = -2; //velocidad de la bola en y
+        const ballRadius = 5; // Radio de la bola
+        let x = canvas.width / 2; // Posición inicial en X de la bola
+        let y = canvas.height - 29; // Posición inicial en Y de la bola
 
+        // Genera una dirección aleatoria hacia arriba
+        let dx = (Math.random() < 0.5 ? -1 : 1) * (Math.random() * 2 + 1); // Velocidad aleatoria en X (-2 a 2)
+        let dy = -(Math.random() * 2 + 1); // Velocidad aleatoria en Y (siempre negativa para ir hacia arriba)
 
         //variables del paddle
         const paddleHeight = 12; //alto del paddle
@@ -320,15 +321,15 @@
         function moveBall() {
             if (!isGameActive) return; // Detiene la ejecución si el juego no está activo
 
-            x += dx; // mueve la bola en x
-            y += dy; // mueve la bola en y
+            x += dx; // Mueve la bola en X
+            y += dy; // Mueve la bola en Y
 
-            // colisiones con los bordes
+            // Colisiones con los bordes
             if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
-                dx = -dx; // cambia la dirección de la bola
+                dx = -dx; // Cambia la dirección de la bola en X
             }
             if (y + dy < ballRadius) {
-                dy = -dy; // cambia la dirección de la bola
+                dy = -dy; // Cambia la dirección de la bola en Y
             }
 
             const isBallOverPaddle = y + dy > paddleY && y < paddleY + paddleHeight;
@@ -336,10 +337,10 @@
 
             // Solo cambia la dirección si la bola está sobre el paddle y moviéndose hacia abajo
             if (isBallOnPaddle && isBallOverPaddle && dy > 0) {
-                dy = -dy; // cambia la dirección de la bola
+                dy = -dy; // Cambia la dirección de la bola
             }
 
-            // colisión con el fondo
+            // Colisión con el fondo
             if (y + dy > canvas.height - ballRadius) {
                 showGameOverModal(); // Muestra el modal de Game Over
             }
