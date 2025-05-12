@@ -13,10 +13,61 @@
 <body>
   <style>
     body {
-      background-color: #000;
-      margin: 0;
-      padding-top: 80px; /* Altura aproximada de la navbar */
-      font-family: 'Poppins', sans-serif;
+        background-color: #222;
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+    }
+    canvas {
+        border: 4px solid #fff;
+        background: url('./fondo\ arcanoid.jpg') repeat;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+
+        /* Estilos para el modal */
+        .modal {
+        display: none; /* Oculto por defecto */
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.8); /* Fondo semitransparente */
+    }
+
+    .modal-content {
+        background-color: #fff;
+        margin: 15% auto;
+        padding: 20px;
+        border-radius: 10px;
+        width: 300px;
+        text-align: center;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content h2 {
+        margin: 0 0 10px;
+        color: #222;
+    }
+
+    .modal-content p {
+        margin: 10px 0;
+        color: #555;
+    }
+
+    .modal-content button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .modal-content button:hover {
+        background-color: #0056b3;
     }
 
     .wrapper {
@@ -24,13 +75,35 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: calc(100vh - 80px); /* Altura del viewport menos la navbar */
+      height: calc(90vh - 70px); 
+      margin-top: 10;
     }
+
+    .navbar-brand {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #000;
+    }
+
+    .navbar-brand img {
+        margin-right: 10px;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background-color: #d6e6f5;
+      padding: 10px 0;
+    }
+    
+    
   </style>
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container-fluid justify-content-between">
+    <!--Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
           <a class="navbar-brand" href="../../home.html">
             <img src="https://www.brexa.com.ar/gaming/img/profile-control.png" alt="Gamepad Logo" width="50" height="50">
             JUEGOS COOL.COM
