@@ -75,7 +75,10 @@
       </div>
     </div>
   </nav>
-  
+  <audio id="musica" autoplay loop style="display: none;">
+    <source src="./audio/music amigos.mp3" type="audio/mpeg">
+    Tu navegador no soporta el elemento de audio.
+  </audio>
 
   <div class="container mt-5">
     <div class="row">
@@ -247,5 +250,21 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
   <script src="/controllers/navbar.js"></script>
   <script src="/controllers/ranked_&_friend.js"></script>
+  <script>
+    // Algunos navegadores bloquean autoplay hasta que el usuario interactúe.
+    // Este script intenta reproducir la música en cuanto sea posible.
+    window.addEventListener('DOMContentLoaded', () => {
+      const audio = document.getElementById('musica');
+      const playAudio = () => {
+        audio.play().catch(() => {
+          // En caso de bloqueo, espera un clic
+          document.body.addEventListener('click', () => {
+            audio.play();
+          }, { once: true });
+        });
+      };
+      playAudio();
+    });
+  </script>
 </body>
 </html>
