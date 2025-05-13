@@ -94,6 +94,8 @@ if (!sessionStorage.getItem("user") && localStorage.getItem("user")) {
       alert("Cuenta eliminada.");
   
       sessionStorage.removeItem("user");
+      localStorage.removeItem('user');
+
       window.location.href = "login.html";
     } catch (err) {
       console.error(err);
