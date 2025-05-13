@@ -90,22 +90,18 @@ const changeFoodPosition = () => {
 const handGameOver = () => {
     clearInterval(gameInterval); // Detiene el intervalo
 
+    actualizarPuntajeFinalSnake(); // ✅ Agrega esta línea
+
     const modal = document.getElementById('gameOverModal');
     const restartButton = document.getElementById('restartButton');
     const homeButton = document.getElementById('homeButton');
 
-    modal.style.display = 'flex'; // Muestra el modal
+    modal.style.display = 'flex';
 
-    // Reinicia el juego al hacer clic en "Seguir Jugando"
-    restartButton.onclick = () => {
-        location.reload(); // Recarga la página para reiniciar el juego
-    };
-
-    // Redirige a Home al hacer clic en "Regresar a Home"
-    homeButton.onclick = () => {
-        window.location.href = '../../home.html'; // Cambia la ruta según tu estructura
-    };
+    restartButton.onclick = () => location.reload();
+    homeButton.onclick = () => window.location.href = '../../home.html';
 };
+
 
 const initGame = () => {
     if (gameOver) return; // Si el juego terminó, no continúa
@@ -174,3 +170,24 @@ const changeDirection = (e) => {
 
 changeFoodPosition();
 document.addEventListener("keydown", changeDirection);
+
+function actualizarPuntajeFinalSnake() {
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    if (user && user._id) {
+        const nuevoScore = user.score + score;
+        fetch(`/api/users/${user._id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ score: nuevoScore })
+        })
+        .then(res => res.json())
+        .then(updatedUser => {
+            sessionStorage.setItem("user", JSON.stringify(updatedUser));
+            const userScore = document.getElementById("user-score");
+            if (userScore) userScore.textContent = `Score: ${updatedUser.score}`;
+        })
+        .catch(err => {
+            console.error("❌ Error al actualizar puntaje:", err);
+        });
+    }
+}
