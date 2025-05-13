@@ -97,6 +97,7 @@ function addEventListeners() {
             if (compareMatrix()) {
                 clearInterval(timer);
                 launchConfetti();
+                actualizarPuntajeFinal();
                 showModal('¡Felicidades!', `Has completado el rompecabezas. ¿Quieres intentar de nuevo o cambiar la dificultad?`);
                 gameActive = false;
                 score += baseScore; // Incrementa el puntaje con el puntaje base seleccionado
@@ -185,3 +186,25 @@ drawTokens();
 
 // Agrega el evento al botón de inicio
 startButton.addEventListener('click', startGame);
+
+function actualizarPuntajeFinal() {
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    if (user && user._id) {
+        const nuevoScore = user.score + score;
+        fetch(`/api/users/${user._id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ score: nuevoScore })
+        })
+        .then(res => res.json())
+        .then(updatedUser => {
+            sessionStorage.setItem("user", JSON.stringify(updatedUser));
+            const scoreElement = document.getElementById("user-score");
+            if (scoreElement) scoreElement.textContent = `Score: ${updatedUser.score}`;
+        })
+        .catch(err => {
+            console.error("❌ Error al actualizar puntaje:", err);
+        });
+    }
+}
+

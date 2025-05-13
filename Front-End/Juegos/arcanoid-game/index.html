@@ -282,6 +282,27 @@
 
         let score = 0; // Variable para la puntuación
 
+        function actualizarPuntajeFinal() {
+            const user = JSON.parse(sessionStorage.getItem("user"));
+            if (user && user._id) {
+                const nuevoScore = user.score + score;
+                fetch(`/api/users/${user._id}`, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ score: nuevoScore })
+                })
+                .then(res => res.json())
+                .then(updatedUser => {
+                    sessionStorage.setItem("user", JSON.stringify(updatedUser));
+                    const userScore = document.getElementById("user-score");
+                    if (userScore) userScore.textContent = `Score: ${updatedUser.score}`;
+                })
+                .catch(err => {
+                    console.error("❌ Error al actualizar puntaje:", err);
+                });
+            }
+        }
+
         function drawscore() {
             ctx.font = "16px Arial"; // Estilo de la fuente
             ctx.fillStyle = "#fff"; // Color del texto
@@ -361,17 +382,18 @@
         }
 
         function showGameOverModal() {
-            isGameActive = false; // Detiene el juego
+            isGameActive = false;
+            actualizarPuntajeFinal(); // También actualiza puntos al perder
             const modal = document.getElementById('gameOverModal');
             const restartButton = document.getElementById('restartButton');
-
-            modal.style.display = 'block'; // Muestra el modal
-
-            // Reinicia el juego al hacer clic en el botón
+            
+            modal.style.display = 'block';
+            
             restartButton.onclick = function () {
-                document.location.reload(); // Recarga la página
+                document.location.reload();
             };
         }
+
         
         function drawRect() {
             if (!isGameActive) return; // Detiene la ejecución si el juego no está activo
@@ -393,12 +415,12 @@
 
         // Modal de victoria
         function showVictoryModal() {
-            isGameActive = false; // Detiene el juego
+            isGameActive = false;
+            actualizarPuntajeFinal(); // Nueva función que sube los puntos a MongoDB
             const modal = document.getElementById('victoryModal');
             const scoreElement = document.getElementById('victoryScore');
-            
-            scoreElement.textContent = score; // Muestra la puntuación
-            modal.style.display = 'block'; // Muestra el modal
+            scoreElement.textContent = score;
+            modal.style.display = 'block';
         }
 
         drawRect(); // Llama a la función para dibujar el rectángulo
