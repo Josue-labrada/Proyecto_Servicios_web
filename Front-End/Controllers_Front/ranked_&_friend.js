@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   
     async function cargarAmigos() {
+      if (!user || !user._id) return;
       try {
         const res = await fetch(`/api/users/${user._id}/friends`);
         const friends = await res.json();
@@ -128,6 +129,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (res.ok) {
           alert(`🎁 Regalaste ${points} puntos a @${friendToDonate}`);
           sessionStorage.setItem("user", JSON.stringify(result.sender));
+          if (typeof actualizarNavbar === "function") {
+            actualizarNavbar();
+          }
           document.getElementById("user-score").textContent = 'Score: ' + result.sender.score;
           cargarAmigos();
           cargarRankingGlobal();
@@ -146,6 +150,8 @@ const autocompleteList = document.getElementById('autocomplete-list');
 friendInput.addEventListener('input', async () => {
   const query = friendInput.value.trim().toLowerCase();
   const user = JSON.parse(sessionStorage.getItem('user'));
+
+  if (!user || !user._id) return;
 
   autocompleteList.innerHTML = '';
   if (query.length < 3) return;

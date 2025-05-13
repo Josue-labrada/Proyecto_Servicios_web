@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // Sincroniza localStorage a sessionStorage si es necesario
+if (!sessionStorage.getItem("user") && localStorage.getItem("user")) {
+  sessionStorage.setItem("user", localStorage.getItem("user"));
+}
+
     const userInfo = document.getElementById('user-info');
     const registerButton = document.getElementById('register-button');
     const userPhoto = document.getElementById('user-photo');
@@ -95,11 +100,26 @@ document.addEventListener('DOMContentLoaded', () => {
       alert("Hubo un error al eliminar la cuenta.");
     }
   }
-  
 
   function cerrarSesion() {
     sessionStorage.removeItem('user');
     localStorage.removeItem('user');
     window.location.href = 'login.html';
   }
+
+function actualizarNavbar() {
+  const user = JSON.parse(sessionStorage.getItem("user"));
+  if (!user) return;
+
+  const userScore = document.getElementById('user-score');
+  const userName = document.getElementById('user-name');
+  const userPhoto = document.getElementById('user-photo');
+
+  if (userScore) userScore.textContent = `Score: ${user.score ?? 0}`;
+  if (userName) userName.textContent = user.username ?? "Usuario";
+  if (userPhoto) userPhoto.src = user.url || 'https://i.imgur.com/eRj7qZp.png';
+}
+
+
+
   
