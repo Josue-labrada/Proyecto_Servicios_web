@@ -191,6 +191,9 @@ document.addEventListener('click', (e) => {
     // Cargar al iniciar
     cargarRankingGlobal();
     cargarAmigos();
+  
+    document.getElementById("search-friend").addEventListener("input", aplicarFiltroAmigos);
+
   });
 
   let rankingData = []; // Se llenará con los usuarios
@@ -309,4 +312,29 @@ async function cargarAmigos() {
 // Llama esto también en tu init principal
 cargarAmigos();
 
-  
+async function cargarAmigos() {
+  try {
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    if (!user || !user._id) return;
+
+    const res = await fetch(`/api/users/${user._id}/friends`);
+    const friends = await res.json();
+
+    amigosData = friends;
+    filteredFriends = [...friends]; // Esto permite filtrar sin perder la lista original
+    renderFriendsPage(currentFriendPage);
+  } catch (err) {
+    console.error("Error al cargar amigos:", err);
+  }
+}
+
+function aplicarFiltroAmigos() {
+  const filtro = document.getElementById("search-friend").value.toLowerCase();
+  filteredFriends = amigosData.filter(amigo =>
+    amigo.username.toLowerCase().includes(filtro)
+  );
+
+  currentFriendPage = 1;
+  renderFriendsPage(currentFriendPage);
+}
+
