@@ -342,6 +342,21 @@
         };
         playAudio();
       });
+
+      // Función para rellenar el correo en el modal
+      function rellenarCorreoDesdeSessionStorage() {
+          const emailInput = document.getElementById("emailInput");
+          const user = JSON.parse(sessionStorage.getItem("user")); // Obtiene el objeto del usuario desde sessionStorage
+          if (user && user.email) {
+              emailInput.value = user.email; // Rellena el campo con el correo del usuario
+          } else {
+              console.error("No se encontró el correo en sessionStorage");
+          }
+      }
+
+      // Evento para abrir el modal y rellenar el correo
+      const settingsModal = document.getElementById("settingsModal");
+      settingsModal.addEventListener("show.bs.modal", rellenarCorreoDesdeSessionStorage);
     </script>
 </body>
 </html>
