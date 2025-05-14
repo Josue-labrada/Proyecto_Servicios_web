@@ -122,6 +122,4 @@ function actualizarNavbar() {
   if (userPhoto) userPhoto.src = user.url || 'https://i.imgur.com/eRj7qZp.png';
 }
 
-
-
-  
+window.actualizarNavbar = actualizarNavbar;

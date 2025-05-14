@@ -95,16 +95,21 @@ function addEventListeners() {
             updateMatrix(token.innerText, actualPosition, emptyPosition);
             drawTokens();
             if (compareMatrix()) {
-                clearInterval(timer);
+                clearInterval(timer);    
                 launchConfetti();
-                actualizarPuntajeFinal();
-                showModal('<span style="color:#0073e6;font-weight:bold;font-size:1.4em;">¡Felicidades!</span>', 'Has completado el rompecabezas. ¿Deseas intentar de nuevo o cambiar la dificultad?');
-                gameActive = false;
-                score += baseScore; // Incrementa el puntaje con el puntaje base seleccionado
+
+                score += baseScore; // 👉 Incrementamos el puntaje    
                 scoreDisplay.textContent = `Puntuación: ${score}`;
-                document.getElementById('difficulty-selection').style.display = 'block'; // Muestra el selector de dificultad
-                startButton.style.display = 'block'; // Muestra el botón de inicio
+    
+                actualizarPuntajeFinal(); // 👉 Esto actualiza Mongo y sessionStorage
+
+                showModal('<span style="color:#0073e6;font-weight:bold;font-size:1.4em;">¡Felicidades!</span>', 'Has completado el rompecabezas. ¿Deseas intentar de nuevo o cambiar la dificultad?');
+    
+                gameActive = false;
+                document.getElementById('difficulty-selection').style.display = 'block';
+                startButton.style.display = 'block';
             }
+
         }
     }));
 }
@@ -188,9 +193,13 @@ drawTokens();
 startButton.addEventListener('click', startGame);
 
 function actualizarPuntajeFinal() {
-    const user = JSON.parse(sessionStorage.getItem("user"));
+    const userSession = sessionStorage.getItem("user");
+    const userLocal = localStorage.getItem("user");
+    const user = userSession ? JSON.parse(userSession) : (userLocal ? JSON.parse(userLocal) : null);
+
     if (user && user._id) {
         const nuevoScore = user.score + score;
+
         fetch(`/api/users/${user._id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
@@ -198,12 +207,22 @@ function actualizarPuntajeFinal() {
         })
         .then(res => res.json())
         .then(updatedUser => {
+            // Actualiza ambos storages
             sessionStorage.setItem("user", JSON.stringify(updatedUser));
+            localStorage.setItem("user", JSON.stringify(updatedUser));
+
+            // Refresca visualmente el score en el navbar
             const scoreElement = document.getElementById("user-score");
             if (scoreElement) scoreElement.textContent = `Score: ${updatedUser.score}`;
+
+            // 👇 LLÁMALO AQUÍ: después de que ya se actualizó el storage
+            if (typeof window.actualizarNavbar === "function") {
+                window.actualizarNavbar();
+            }
         })
         .catch(err => {
             console.error("❌ Error al actualizar puntaje:", err);
         });
     }
 }
+
