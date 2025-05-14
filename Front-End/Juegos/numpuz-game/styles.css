@@ -14,7 +14,7 @@ html, body {
 }
 
 .navbar-brand {
-    font-size: 2.5rem;
+    font-size: 4rem;
     font-weight: 700;
     color: #000;
 }
@@ -70,7 +70,7 @@ html, body {
 .game-container {
     margin-top: 0px; /* Agrega un margen superior para evitar que el contenido quede debajo del navbar */
     text-align: center;
-    background-color: #d6eaff; /* Fondo del contenedor azul claro */
+    background-color: #aac8e8; /* Fondo del contenedor azul claro */
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -120,7 +120,7 @@ h2 {
 
 .empty {
     background-color: transparent;
-    border: 2px dashed #99ccff; /* Azul claro para el espacio vacío */
+    border: 2px dashed #3f93e7; /* Azul claro para el espacio vacío */
     height: 100px;
 }
 
@@ -233,4 +233,10 @@ h2 {
     background-color: #0059b3; /* Azul más oscuro al pasar el mouse */
     transform: scale(1.05); /* Efecto de agrandamiento */
     box-shadow: 0 6px 15px rgba(0, 89, 179, 0.5); /* Sombra más intensa */
+}
+
+.navbar-brand {
+    font-size: 2.5rem !important;
+    font-weight: bold !important;
+    margin-left: 15px;
 }
