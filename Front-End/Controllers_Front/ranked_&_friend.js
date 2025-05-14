@@ -40,8 +40,8 @@ document.addEventListener("DOMContentLoaded", () => {
           li.innerHTML = `
             <span>@${friend.username}</span>
             <div class="btn-group btn-group-sm">
-              <button class="btn btn-success btn-donar" data-username="${friend.username}">Regalar puntos</button>
-              <button class="btn btn-danger btn-eliminar" data-username="${friend.username}">Eliminar</button>
+              <button class="btn btn-success btn-donar" data-username="${friend.username}">🎁</button>
+              <button class="btn btn-danger btn-eliminar" data-username="${friend.username}">🗑️</button>
             </div>`;
           amigosList.appendChild(li);
         });
@@ -261,22 +261,24 @@ function renderFriendsPage(page) {
   const friendsList = document.getElementById('friends-list');
   friendsList.innerHTML = "";
 
-  amigosData.slice(start, end).forEach(friend => {
+  const total = filteredFriends.length;
+
+  filteredFriends.slice(start, end).forEach(friend => {
     const li = document.createElement("li");
     li.className = "list-group-item d-flex justify-content-between align-items-center";
     li.innerHTML = `
-      <span>${friend.username}</span>
-      <div>
-        <button class="btn btn-sm btn-success me-2" onclick="abrirModalDonar('${friend._id}', '${friend.username}')">🎁</button>
-        <button class="btn btn-sm btn-danger" onclick="abrirModalEliminar('${friend._id}', '${friend.username}')">🗑️</button>
-      </div>
-    `;
+      <span>@${friend.username}</span>
+      <div class="btn-group btn-group-sm">
+        <button class="btn btn-success btn-donar" data-username="${friend.username}">🎁</button>
+        <button class="btn btn-danger btn-eliminar" data-username="${friend.username}">🗑️</button>
+      </div>`;
     friendsList.appendChild(li);
   });
 
-  document.getElementById("friends-count").textContent = `Mostrando ${Math.min(end, amigosData.length)} de ${amigosData.length} amigos`;
+  document.getElementById("friends-count").textContent = `Mostrando ${Math.min(end, total)} de ${total} amigos`;
   renderFriendPaginationControls();
 }
+
 
 function renderFriendPaginationControls() {
   const totalPages = Math.ceil(amigosData.length / friendsPerPage);

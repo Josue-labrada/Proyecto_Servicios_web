@@ -34,47 +34,52 @@ if (!sessionStorage.getItem("user") && localStorage.getItem("user")) {
   
   
   async function confirmarGuardado() {
-    const email = document.getElementById("emailInput").value;
-    const password = document.getElementById("passwordInput").value;
-  
-    const user = JSON.parse(sessionStorage.getItem("user"));
-    if (!user || !user._id) {
-      alert("Error: Usuario no autenticado.");
-      return;
-    }
-  
-    const updateData = {};
-    if (email) updateData.email = email;
-    if (password) updateData.password = password;
-  
-    try {
-      const res = await fetch(`/api/users/${user._id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(updateData)
-      });
-  
-      if (!res.ok) throw new Error("No se pudo actualizar");
-  
-      const updatedUser = await res.json();
-      // Opcional: actualizamos el sessionStorage con el nuevo correo si cambió
-      sessionStorage.setItem("user", JSON.stringify(updatedUser));
-  
-      alert("Cambios guardados exitosamente.");
-  
-      // Cerrar ambos modales
-      const saveModal = bootstrap.Modal.getInstance(document.getElementById("confirmSaveModal"));
-      const configModal = bootstrap.Modal.getInstance(document.getElementById("settingsModal"));
-      saveModal.hide();
-      configModal.hide();
-  
-    } catch (err) {
-      console.error(err);
-      alert("Hubo un error al guardar los cambios.");
-    }
+  const email = document.getElementById("emailInput").value;
+  const password = document.getElementById("passwordInput").value;
+  const url = document.getElementById("urlInput").value;
+
+  const user = JSON.parse(sessionStorage.getItem("user"));
+  if (!user || !user._id) {
+    alert("Error: Usuario no autenticado.");
+    return;
   }
+
+  const updateData = {};
+  if (email) updateData.email = email;
+  if (password) updateData.password = password;
+  if (url) updateData.url = url;
+
+  try {
+    const res = await fetch(`/api/users/${user._id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(updateData)
+    });
+
+    if (!res.ok) throw new Error("No se pudo actualizar");
+
+    const updatedUser = await res.json();
+    sessionStorage.setItem("user", JSON.stringify(updatedUser));
+    localStorage.setItem("user", JSON.stringify(updatedUser));
+
+    if (typeof actualizarNavbar === "function") actualizarNavbar();
+
+    alert("Cambios guardados exitosamente.");
+
+    const saveModal = bootstrap.Modal.getInstance(document.getElementById("confirmSaveModal"));
+    const configModal = bootstrap.Modal.getInstance(document.getElementById("settingsModal"));
+    saveModal.hide();
+    configModal.hide();
+
+  } catch (err) {
+    console.error(err);
+    alert("Hubo un error al guardar los cambios.");
+  }
+}
+
+
 
 
   async function confirmarEliminacion() {

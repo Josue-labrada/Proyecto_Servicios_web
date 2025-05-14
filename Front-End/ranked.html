@@ -189,7 +189,7 @@
 </div>
 
     <!-- Modal de Configuración -->
-    <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+     <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content bg-dark text-white">
           <div class="modal-header">
@@ -206,6 +206,10 @@
                 <label for="passwordInput" class="form-label">Contraseña</label>
                 <input type="password" class="form-control" id="passwordInput" placeholder="Nueva contraseña">
               </div>
+              <div class="mb-3">
+                <label for="urlInput" class="form-label">URL de imagen de perfil</label>
+                <input type="url" class="form-control" id="urlInput" placeholder="https://example.com/mi-foto.jpg">
+              </div>
             </form>
           </div>
           <div class="modal-footer justify-content-between flex-wrap">
@@ -218,6 +222,7 @@
         </div>
       </div>
     </div>
+
 
 
     <!-- Modal de Confirmación para Guardar Cambios -->
@@ -281,14 +286,19 @@
 
     // Función para rellenar el correo en el modal
     function rellenarCorreoDesdeSessionStorage() {
-        const emailInput = document.getElementById("emailInput");
-        const user = JSON.parse(sessionStorage.getItem("user")); // Obtiene el objeto del usuario desde sessionStorage
-        if (user && user.email) {
-            emailInput.value = user.email; // Rellena el campo con el correo del usuario
-        } else {
-            console.error("No se encontró el correo en sessionStorage");
+      const emailInput = document.getElementById("emailInput");
+      const urlInput = document.getElementById("urlInput");  
+      const user = JSON.parse(sessionStorage.getItem("user"));
+
+      if (user && user.email) {
+        emailInput.value = user.email;
         }
+
+      if (user && user.url) {
+        urlInput.value = user.url;
+      }
     }
+
 
     // Evento para abrir el modal y rellenar el correo
     const settingsModal = document.getElementById("settingsModal");

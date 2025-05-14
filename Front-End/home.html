@@ -270,6 +270,11 @@
                 <label for="passwordInput" class="form-label">Contraseña</label>
                 <input type="password" class="form-control" id="passwordInput" placeholder="Nueva contraseña">
               </div>
+              <div class="mb-3">
+                <label for="urlInput" class="form-label">URL de imagen de perfil</label>
+                <input type="url" class="form-control" id="urlInput" placeholder="https://example.com/imagen.jpg">
+              </div>
+
             </form>
           </div>
           <div class="modal-footer justify-content-between flex-wrap">
@@ -345,14 +350,19 @@
 
       // Función para rellenar el correo en el modal
       function rellenarCorreoDesdeSessionStorage() {
-          const emailInput = document.getElementById("emailInput");
-          const user = JSON.parse(sessionStorage.getItem("user")); // Obtiene el objeto del usuario desde sessionStorage
-          if (user && user.email) {
-              emailInput.value = user.email; // Rellena el campo con el correo del usuario
-          } else {
-              console.error("No se encontró el correo en sessionStorage");
-          }
+        const emailInput = document.getElementById("emailInput");
+        const urlInput = document.getElementById("urlInput");  
+        const user = JSON.parse(sessionStorage.getItem("user")); // primero
+
+        if (user && user.email) {
+          emailInput.value = user.email;  
+        }
+
+        if (user && user.url) {
+          urlInput.value = user.url;
+        }
       }
+
 
       // Evento para abrir el modal y rellenar el correo
       const settingsModal = document.getElementById("settingsModal");
