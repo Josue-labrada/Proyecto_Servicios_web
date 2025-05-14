@@ -1,5 +1,3 @@
-
-
 body {
     background-color: #222; /* Fondo azul claro */
     margin: 0;
@@ -72,6 +70,11 @@ body {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 h2 {
@@ -88,7 +91,7 @@ h2 {
 
 .board {
     display: grid;
-    grid-template-columns: repeat(3, 80px);
+    grid-template-columns: repeat(3, 100px);
     grid-gap: 10px;
     justify-content: center;
     margin-bottom: 20px;
@@ -104,14 +107,14 @@ h2 {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80px;
+    height: 100px;
     cursor: pointer;
 }
 
 .empty {
     background-color: transparent;
     border: 2px dashed #99ccff; /* Azul claro para el espacio vacío */
-    height: 80px;
+    height: 100px;
 }
 
 .controls {
@@ -130,6 +133,7 @@ h2 {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+    margin-right: 10px;
 }
 
 #startButton:hover {
@@ -163,7 +167,7 @@ h2 {
     margin: 15% auto;
     padding: 20px;
     border-radius: 10px;
-    width: 300px;
+    width: 320px;
     text-align: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
