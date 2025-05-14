@@ -176,10 +176,14 @@ function renderRankingPage(page) {
     rankingData.slice(start, end).forEach((user, index) => {
         const row = document.createElement("tr");
         row.innerHTML = `
-            <td>${start + index + 1}</td>
-            <td>${user.username}</td>
-            <td>${user.score}</td>
+        <td>${start + index + 1}</td>
+        <td>
+            <img src="${user.url || 'https://i.imgur.com/eRj7qZp.png'}" alt="avatar" width="30" height="30" class="rounded-circle me-2 border border-white">
+            @${user.username}
+        </td>
+        <td>${user.score}</td>
         `;
+
         rankingTable.appendChild(row);
     });
 
@@ -232,11 +236,16 @@ function renderFriendsPage(page) {
         const li = document.createElement("li");
         li.className = "list-group-item d-flex justify-content-between align-items-center";
         li.innerHTML = `
-            <span>@${friend.username}</span>
+            <div class="d-flex align-items-center">
+                <img src="${friend.url || 'https://i.imgur.com/eRj7qZp.png'}" alt="avatar" width="30" height="30" class="rounded-circle me-2 border border-white">
+                <span>@${friend.username}</span>
+            </div>
             <div class="btn-group btn-group-sm">
                 <button class="btn btn-success btn-donar" data-username="${friend.username}">🎁</button>
                 <button class="btn btn-danger btn-eliminar" data-username="${friend.username}">🗑️</button>
-            </div>`;
+            </div>
+        `;
+
         friendsList.appendChild(li);
     });
 
