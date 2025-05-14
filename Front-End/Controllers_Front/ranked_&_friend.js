@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
                 document.getElementById("user-score").textContent = 'Score: ' + result.sender.score;
                 cargarAmigos();
-                cargarRankingGlobal();
+                await cargarRanking();
                 bootstrap.Modal.getInstance(document.getElementById("confirmDonatePointsModal")).hide();
             } else {
                 alert(`❌ ${result.message}`);
