@@ -192,4 +192,121 @@ document.addEventListener('click', (e) => {
     cargarRankingGlobal();
     cargarAmigos();
   });
+
+  let rankingData = []; // Se llenará con los usuarios
+let currentPage = 1;
+const itemsPerPage = 10;
+
+function renderRankingPage(page) {
+  const start = (page - 1) * itemsPerPage;
+  const end = start + itemsPerPage;
+  const rankingTable = document.getElementById('ranking-table-body');
+  rankingTable.innerHTML = "";
+
+  rankingData.slice(start, end).forEach((user, index) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${start + index + 1}</td>
+      <td>${user.username}</td>
+      <td>${user.score}</td>
+    `;
+    rankingTable.appendChild(row);
+  });
+
+  document.getElementById("ranking-count").textContent = `Mostrando ${Math.min(end, rankingData.length)} de ${rankingData.length} jugadores`;
+  renderPaginationControls();
+}
+
+function renderPaginationControls() {
+  const totalPages = Math.ceil(rankingData.length / itemsPerPage);
+  const pagination = document.getElementById("pagination");
+  pagination.innerHTML = "";
+
+  for (let i = 1; i <= totalPages; i++) {
+    const li = document.createElement("li");
+    li.className = `page-item ${i === currentPage ? "active" : ""}`;
+    li.innerHTML = `<button class="page-link">${i}</button>`;
+    li.addEventListener("click", () => {
+      currentPage = i;
+      renderRankingPage(currentPage);
+    });
+    pagination.appendChild(li);
+  }
+}
+
+async function cargarRanking() {
+  try {
+    const res = await fetch("/api/users");
+    const users = await res.json();
+    rankingData = users.sort((a, b) => b.score - a.score); // Ordena por score descendente
+    renderRankingPage(currentPage);
+  } catch (err) {
+    console.error("Error al cargar ranking:", err);
+  }
+}
+
+// Llama esta función en tu init principal
+cargarRanking();
+
+let amigosData = [];
+let currentFriendPage = 1;
+const friendsPerPage = 10;
+
+function renderFriendsPage(page) {
+  const start = (page - 1) * friendsPerPage;
+  const end = start + friendsPerPage;
+  const friendsList = document.getElementById('friends-list');
+  friendsList.innerHTML = "";
+
+  amigosData.slice(start, end).forEach(friend => {
+    const li = document.createElement("li");
+    li.className = "list-group-item d-flex justify-content-between align-items-center";
+    li.innerHTML = `
+      <span>${friend.username}</span>
+      <div>
+        <button class="btn btn-sm btn-success me-2" onclick="abrirModalDonar('${friend._id}', '${friend.username}')">🎁</button>
+        <button class="btn btn-sm btn-danger" onclick="abrirModalEliminar('${friend._id}', '${friend.username}')">🗑️</button>
+      </div>
+    `;
+    friendsList.appendChild(li);
+  });
+
+  document.getElementById("friends-count").textContent = `Mostrando ${Math.min(end, amigosData.length)} de ${amigosData.length} amigos`;
+  renderFriendPaginationControls();
+}
+
+function renderFriendPaginationControls() {
+  const totalPages = Math.ceil(amigosData.length / friendsPerPage);
+  const pagination = document.getElementById("pagination-friends");
+  pagination.innerHTML = "";
+
+  for (let i = 1; i <= totalPages; i++) {
+    const li = document.createElement("li");
+    li.className = `page-item ${i === currentFriendPage ? "active" : ""}`;
+    li.innerHTML = `<button class="page-link">${i}</button>`;
+    li.addEventListener("click", () => {
+      currentFriendPage = i;
+      renderFriendsPage(currentFriendPage);
+    });
+    pagination.appendChild(li);
+  }
+}
+
+async function cargarAmigos() {
+  try {
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    if (!user || !user._id) return;
+
+    const res = await fetch(`/api/users/${user._id}/friends`);
+    const friends = await res.json();
+    amigosData = friends;
+    renderFriendsPage(currentFriendPage);
+  } catch (err) {
+    console.error("Error al cargar amigos:", err);
+  }
+}
+
+// Llama esto también en tu init principal
+cargarAmigos();
+
   
