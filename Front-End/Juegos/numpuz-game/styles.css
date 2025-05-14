@@ -4,6 +4,10 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
+html, body {
+    height: 100%;
+}
+
 .navbar {
     background-color: #d6e6f5;
     padding: 10px 20px;
@@ -75,6 +79,9 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    min-height: 70vh;
+    height: calc(100vh - 70px);
+    
 }
 
 h2 {
