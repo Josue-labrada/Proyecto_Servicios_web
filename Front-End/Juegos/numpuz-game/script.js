@@ -27,14 +27,14 @@ function shuffleMatrix() {
 
 // Función para mostrar el modal
 function showModal(title, message) {
-    modalTitle.textContent = title;
+    modalTitle.innerHTML = title;
     modalMessage.textContent = message;
-    modal.classList.remove('hidden');
+    modal.style.display = 'block';
 }
 
 // Función para ocultar el modal
 modalButton.addEventListener('click', () => {
-    modal.classList.add('hidden');
+    modal.style.display = 'none';
     if (!gameActive) {
         startButton.style.display = 'block'; // Muestra el botón de "Jugar de nuevo"
     }
@@ -76,7 +76,7 @@ function startGame() {
         if (timeLeft <= 0) {
             clearInterval(timer);
             gameActive = false;
-            showModal('¡Tiempo agotado!', 'No lograste completar el rompecabezas. ¿Quieres intentar de nuevo o cambiar la dificultad?');
+            showModal('<span style="color:#b30000;font-weight:bold;font-size:1.4em;">Game Over</span>', 'No lograste completar el rompecabezas. ¿Deseas intentar de nuevo o cambiar la dificultad?');
             document.getElementById('difficulty-selection').style.display = 'block'; // Muestra el selector de dificultad
             startButton.style.display = 'block'; // Muestra el botón de inicio
         }
@@ -98,7 +98,7 @@ function addEventListeners() {
                 clearInterval(timer);
                 launchConfetti();
                 actualizarPuntajeFinal();
-                showModal('¡Felicidades!', `Has completado el rompecabezas. ¿Quieres intentar de nuevo o cambiar la dificultad?`);
+                showModal('<span style="color:#0073e6;font-weight:bold;font-size:1.4em;">¡Felicidades!</span>', 'Has completado el rompecabezas. ¿Deseas intentar de nuevo o cambiar la dificultad?');
                 gameActive = false;
                 score += baseScore; // Incrementa el puntaje con el puntaje base seleccionado
                 scoreDisplay.textContent = `Puntuación: ${score}`;
